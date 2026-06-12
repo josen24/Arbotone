@@ -705,15 +705,7 @@ async function cargarDatos(){
     poolData.contractBalance= parseFloat(ethers.formatEther(contBal));
     poolData.investorCount  = Number(invCount);
     // Actualizar hint con BNB requerido para $20 USD
-    try {
-      const requiredBNB = await contract.getRequiredBNB();
-      const bnbAmount = parseFloat(ethers.formatEther(requiredBNB)).toFixed(4);
-      const hint = document.getElementById('depositHint');
-      const equiv = document.getElementById('bnbEquivalent');
-      if(equiv) equiv.textContent = bnbAmount;
-      if(hint) hint.innerHTML = `≈ <span id="bnbEquivalent">${bnbAmount}</span> BNB al precio actual`;
-    } catch(e) { console.log('getRequiredBNB:', e); }
-
+    
     actualizarUIPool();
 
     if(userAddress){
@@ -840,13 +832,12 @@ async function confirmDeposit(){
   if(!contract){ showToast('Contrato no desplegado aún', 'error'); return; }
   try {
     showToast('Calculando monto en BNB...', 'info');
-    const requiredWei = await contract.getRequiredBNB();
+    const requiredWei = await contract.MIN_DEPOSIT();
     showToast('Confirmando en wallet...', 'info');
     const tx = await contract.deposit({ value: requiredWei });
     showToast('Transacción enviada, esperando confirmación...', 'info');
     await tx.wait();
     showToast('¡Depósito exitoso! ✓', 'success');
-    document.getElementById('depositAmount').value = '';
     await cargarDatos();
   } catch(e){
     if(e.code === 4001) showToast('Transacción cancelada', 'error');
