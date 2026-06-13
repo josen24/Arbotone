@@ -134,6 +134,11 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 4
 .range-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:20px;height:20px;border-radius:50%;background:var(--mint);cursor:pointer;box-shadow:0 0 8px rgba(0,201,167,.4)}
 .range-slider::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--mint);cursor:pointer;border:none;box-shadow:0 0 8px rgba(0,201,167,.4)}
 .range-limits{display:flex;justify-content:space-between;font-size:11px;color:var(--text3);font-family:var(--fm);margin-top:6px}
+.deposit-input-wrap{position:relative;margin-bottom:10px}
+.deposit-input-wrap input{width:100%;background:var(--card2);border:1px solid var(--border);color:var(--text);font-family:var(--fm);font-size:22px;font-weight:600;padding:12px 52px 12px 16px;border-radius:var(--radius-sm);outline:none;transition:border .2s;text-align:center}
+.deposit-input-wrap input:focus{border-color:var(--mint)}
+.deposit-input-wrap .input-unit{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:14px;font-family:var(--fm);font-weight:500}
+.deposit-input-error{font-size:11px;color:#FF6B6B;text-align:center;min-height:16px;margin-bottom:4px}
 </style>
 </head>
 <body>
@@ -152,7 +157,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 4
 
 <div style="background:linear-gradient(90deg,rgba(26,110,255,.1),rgba(26,110,255,.04));border-bottom:1px solid rgba(26,110,255,.2);padding:11px 40px;display:flex;align-items:center;gap:10px;font-size:13px;color:var(--blue2)">
   <span style="font-size:16px">&#9888;&#65039;</span>
-  <span><strong style="color:var(--text)">Fase de pruebas &mdash; depositos entre $20 y $100 USD.</strong> El limite se ampliara progresivamente conforme el bot demuestre consistencia.</span>
+  <span><strong style="color:var(--text)">Fase de pruebas &mdash; tope temporal de $10 USD por inversor.</strong> Este limite subira progresivamente conforme el bot demuestre consistencia con mayor capital.</span>
 </div>
 
 <div class="hero">
@@ -245,7 +250,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 4
         </div>
         <div class="faq-item">
           <div class="faq-q" onclick="toggleFaq(this)">Cual es el minimo para invertir?<span class="faq-icon">+</span></div>
-          <div class="faq-a">Puedes depositar entre $20 y $100 USD en BNB. El contrato usa Chainlink para calcular el equivalente en BNB en tiempo real segun el precio actual.</div>
+          <div class="faq-a">El deposito es de exactamente $10 USD en BNB al precio actual. El contrato usa Chainlink para calcular el equivalente en BNB en tiempo real.</div>
         </div>
       </div>
     </div>
@@ -255,14 +260,10 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 4
     <div class="card">
       <div class="card-title">Depositar BNB</div>
 
-      <!-- Selector de monto -->
-      <div class="deposit-range-wrap">
-        <div class="deposit-usd-display" id="depositUSDDisplay">$20 USD</div>
-        <div class="deposit-bnb-display" id="depositBNBDisplay">&#8776; cargando... BNB</div>
-        <input type="range" class="range-slider" id="depositSlider"
-          min="20" max="100" step="5" value="20"
-          oninput="onSliderChange(this.value)">
-        <div class="range-limits"><span>$20 USD</span><span>$100 USD</span></div>
+      <div style="text-align:center;padding:12px 0 8px">
+        <div style="font-size:13px;color:var(--text3);margin-bottom:4px">Monto fijo de deposito</div>
+        <div style="font-size:32px;font-weight:600;font-family:var(--fm);color:var(--mint)">$10 USD</div>
+        <div style="font-size:13px;color:var(--text3);margin-top:4px" id="depositBNBDisplay">&#8776; cargando... BNB</div>
       </div>
 
       <div class="stat-row" style="padding:10px 0">
@@ -370,9 +371,7 @@ const POOL_CAP_BNB     = 100;
 const CONTRACT_ABI = [
   {"inputs":[],"name":"deposit","outputs":[],"stateMutability":"payable","type":"function"},
   {"inputs":[],"name":"withdraw","outputs":[],"stateMutability":"nonpayable","type":"function"},
-  {"inputs":[],"name":"getMinRequiredBNB","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
-  {"inputs":[],"name":"getMaxRequiredBNB","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
-  {"inputs":[],"name":"getBNBPrice","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
+  {"inputs":[],"name":"getRequiredBNB","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
   {"inputs":[{"internalType":"address","name":"_addr","type":"address"}],"name":"getWithdrawPreview","outputs":[{"internalType":"uint256","name":"capitalInvertido","type":"uint256"},{"internalType":"uint256","name":"gananciasAcumuladas","type":"uint256"},{"internalType":"uint256","name":"pagoAlEquipo","type":"uint256"},{"internalType":"uint256","name":"recibirasNeto","type":"uint256"}],"stateMutability":"view","type":"function"},
   {"inputs":[{"internalType":"address","name":"_addr","type":"address"}],"name":"getInvestor","outputs":[{"internalType":"uint256","name":"capital","type":"uint256"},{"internalType":"uint256","name":"earnedProfits","type":"uint256"},{"internalType":"uint256","name":"totalEarned","type":"uint256"},{"internalType":"uint256","name":"joinedAt","type":"uint256"},{"internalType":"uint256","name":"sharePercent","type":"uint256"}],"stateMutability":"view","type":"function"},
   {"inputs":[],"name":"totalInvested","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
@@ -386,39 +385,15 @@ const CONTRACT_ABI = [
 let provider,signer,contract,userAddress;
 let poolData={totalInvested:0,investorCount:0,contractBalance:0,totalProfits:0};
 let userData={capital:0,profits:0,neto:0,share:0,joinedAt:0};
-let minBNB=0, maxBNB=0, bnbPrice=0;
-let selectedUSD=20; // monto seleccionado por el slider
+let requiredBNB=0;
 
-// â”€â”€ Slider â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
-function onSliderChange(val){
-  selectedUSD = parseInt(val);
-  document.getElementById('depositUSDDisplay').textContent = '$'+selectedUSD+' USD';
-  actualizarBNBDisplay();
-  actualizarCuotaEstimada();
-}
+// â”€â”€ Deposit fijo $10 USD via Chainlink â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
-function actualizarBNBDisplay(){
-  if(bnbPrice > 0){
-    // bnbPrice viene con 8 decimales de Chainlink
-    const bnbAmount = (selectedUSD * 1e8) / bnbPrice;
-    document.getElementById('depositBNBDisplay').textContent = '\u2248 '+bnbAmount.toFixed(4)+' BNB';
-  } else {
-    document.getElementById('depositBNBDisplay').textContent = '\u2248 cargando... BNB';
-  }
-}
-
-function getSelectedBNBWei(){
-  // Calcula los wei para el monto USD seleccionado
-  if(bnbPrice === 0) return null;
-  // wei = (usd * 1e8 * 1e18) / bnbPrice
-  return BigInt(Math.floor(selectedUSD * 1e8)) * BigInt('1000000000000000000') / BigInt(Math.floor(bnbPrice));
-}
 
 function actualizarCuotaEstimada(){
-  if(bnbPrice > 0){
-    const bnbAmount = (selectedUSD * 1e8) / bnbPrice;
+  if(requiredBNB > 0){
     const pool = poolData.totalInvested || 0;
-    const share = ((bnbAmount / (pool + bnbAmount)) * 100).toFixed(2) + '%';
+    const share = ((requiredBNB / (pool + requiredBNB)) * 100).toFixed(2) + '%';
     document.getElementById('estimatedShare').textContent = share;
   }
 }
@@ -469,24 +444,20 @@ function desconectarWallet(){
 async function cargarDatos(){
   if(!contract)return;
   try{
-    const[totalInv,totalProf,contBal,invCount,minBNBRaw,maxBNBRaw,bnbPriceRaw]=await Promise.all([
+    const[totalInv,totalProf,contBal,invCount,reqBNB]=await Promise.all([
       contract.totalInvested(),
       contract.totalProfitsDeposited(),
       contract.contractBalance(),
       contract.activeInvestorCount(),
-      contract.getMinRequiredBNB(),
-      contract.getMaxRequiredBNB(),
-      contract.getBNBPrice()
+      contract.getRequiredBNB()
     ]);
     poolData.totalInvested=parseFloat(ethers.formatEther(totalInv));
     poolData.totalProfits=parseFloat(ethers.formatEther(totalProf));
     poolData.contractBalance=parseFloat(ethers.formatEther(contBal));
     poolData.investorCount=Number(invCount);
-    minBNB=parseFloat(ethers.formatEther(minBNBRaw));
-    maxBNB=parseFloat(ethers.formatEther(maxBNBRaw));
-    bnbPrice=Number(bnbPriceRaw); // 8 decimales
+    requiredBNB=parseFloat(ethers.formatEther(reqBNB));
 
-    actualizarBNBDisplay();
+    document.getElementById('depositBNBDisplay').textContent='â‰ˆ '+requiredBNB.toFixed(4)+' BNB';
     actualizarUIPool();
 
     if(userAddress){
@@ -538,12 +509,11 @@ function actualizarUIInversor(){
 
 function showDeposit(){
   if(!userAddress){showToast('Conecta tu wallet primero','error');return;}
-  if(bnbPrice===0){showToast('Cargando precio BNB...','error');return;}
-  const bnbAmount = (selectedUSD * 1e8) / bnbPrice;
+  if(requiredBNB===0){showToast('Cargando precio BNB...','error');return;}
   const pool=poolData.totalInvested||0;
-  const share=((bnbAmount/(pool+bnbAmount))*100).toFixed(2)+'%';
-  document.getElementById('mdepUSD').textContent='$'+selectedUSD+' USD';
-  document.getElementById('mdepAmount').textContent=bnbAmount.toFixed(4)+' BNB';
+  const share=((requiredBNB/(pool+requiredBNB))*100).toFixed(2)+'%';
+  document.getElementById('mdepUSD').textContent='$10 USD';
+  document.getElementById('mdepAmount').textContent=requiredBNB.toFixed(4)+' BNB';
   document.getElementById('mdepShare').textContent=share;
   document.getElementById('depositModal').classList.add('show');
 }
@@ -564,11 +534,11 @@ function closeModals(){
 async function confirmDeposit(){
   closeModals();
   if(!contract){showToast('Contrato no conectado','error');return;}
-  const weiAmount = getSelectedBNBWei();
-  if(!weiAmount){showToast('Error calculando monto','error');return;}
   try{
+    showToast('Calculando monto en BNB...','info');
+    const requiredWei=await contract.getRequiredBNB();
     showToast('Confirmando en wallet...','info');
-    const tx=await contract.deposit({value:weiAmount});
+    const tx=await contract.deposit({value:requiredWei});
     showToast('Transaccion enviada, esperando confirmacion...','info');
     await tx.wait();
     showToast('Deposito exitoso!','success');
