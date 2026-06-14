@@ -57,11 +57,6 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 4
 .btn-primary:hover{background:var(--blue2);transform:translateY(-1px)}
 .btn-secondary{flex:1;background:transparent;color:var(--text2);border:1px solid var(--border);padding:13px;border-radius:var(--radius-sm);font-family:var(--ff);font-size:14px;font-weight:500;cursor:pointer;transition:all .2s}
 .btn-secondary:hover{border-color:var(--text3);color:var(--text)}
-.input-wrap{position:relative;margin-bottom:12px}
-.input-wrap input{width:100%;background:var(--card2);border:1px solid var(--border);color:var(--text);font-family:var(--fm);font-size:16px;padding:13px 60px 13px 16px;border-radius:var(--radius-sm);outline:none;transition:border .2s}
-.input-wrap input:focus{border-color:var(--blue)}
-.input-unit{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:13px;font-family:var(--fm)}
-.input-hint{font-size:12px;color:var(--text3);margin-bottom:16px}
 .pool-bar-wrap{margin-bottom:20px}
 .pool-bar-label{display:flex;justify-content:space-between;font-size:12px;color:var(--text3);margin-bottom:8px}
 .pool-bar{height:6px;background:var(--border);border-radius:4px;overflow:hidden}
@@ -72,16 +67,6 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 4
 .stat-row-val{font-size:14px;font-weight:500;font-family:var(--fm);color:var(--text)}
 .stat-row-val.mint{color:var(--mint)}
 .tx-list{display:flex;flex-direction:column;gap:8px}
-.tx-item{display:flex;align-items:center;gap:14px;padding:14px;background:var(--card2);border:1px solid var(--border);border-radius:var(--radius-sm);cursor:pointer;transition:border .2s}
-.tx-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
-.tx-icon.dep{background:rgba(26,110,255,.15)}
-.tx-icon.pro{background:rgba(0,201,167,.12)}
-.tx-info{flex:1}
-.tx-type{font-size:13px;font-weight:500;color:var(--text)}
-.tx-date{font-size:11px;color:var(--text3)}
-.tx-amount{font-size:14px;font-weight:600;font-family:var(--fm)}
-.tx-amount.pos{color:var(--mint)}
-.tx-amount.neu{color:var(--text2)}
 .faq-item{border-bottom:1px solid var(--border);overflow:hidden}
 .faq-q{display:flex;justify-content:space-between;align-items:center;padding:18px 0;cursor:pointer;font-size:14px;font-weight:500;color:var(--text);transition:color .2s;gap:12px}
 .faq-q:hover{color:var(--blue2)}
@@ -102,8 +87,8 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 4
 .preview-row.total{border-top:1px solid var(--border);margin-top:8px;padding-top:14px}
 .preview-row.total .val{color:var(--mint);font-size:18px}
 .modal-actions{display:flex;gap:10px}
-.btn-cancel{flex:1;background:transparent;border:1px solid var(--border);color:var(--text2);padding:12px;border-radius:var(--radius-sm);font-family:var(--ff);font-size:14px;cursor:pointer;transition:all .2s}
-.btn-confirm{flex:2;background:var(--mint);color:var(--navy);border:none;padding:12px;border-radius:var(--radius-sm);font-family:var(--ff);font-size:14px;font-weight:600;cursor:pointer;transition:all .2s}
+.btn-cancel{flex:1;background:transparent;border:1px solid var(--border);color:var(--text2);padding:12px;border-radius:var(--radius-sm);font-family:var(--ff);font-size:14px;cursor:pointer}
+.btn-confirm{flex:2;background:var(--mint);color:var(--navy);border:none;padding:12px;border-radius:var(--radius-sm);font-family:var(--ff);font-size:14px;font-weight:600;cursor:pointer}
 .btn-confirm:hover{background:var(--mint2)}
 .notice{background:rgba(26,110,255,.08);border:1px solid rgba(26,110,255,.2);border-radius:var(--radius-sm);padding:12px 16px;font-size:12px;color:var(--blue2);margin-top:16px;line-height:1.6}
 .notice strong{color:var(--text)}
@@ -121,24 +106,23 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 4
 .op-stat:last-of-type{border-bottom:none}
 .op-stat-label{font-size:12px;color:var(--text3)}
 .op-stat-val{font-size:14px;font-weight:600;font-family:var(--fm);color:var(--text)}
-.btn-operator{width:100%;background:linear-gradient(135deg,var(--gold),#e8920a);color:var(--navy);border:none;padding:13px;border-radius:var(--radius-sm);font-family:var(--ff);font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;margin-top:12px}
+.btn-operator{width:100%;background:linear-gradient(135deg,var(--gold),#e8920a);color:var(--navy);border:none;padding:13px;border-radius:var(--radius-sm);font-family:var(--ff);font-size:14px;font-weight:700;cursor:pointer;margin-top:12px}
 .btn-operator:disabled{opacity:.5;cursor:not-allowed}
-
-/* â”€â”€ Deposit amount selector â”€â”€ */
-.deposit-range-wrap{margin-bottom:16px}
-.deposit-range-label{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
-.deposit-range-label span{font-size:12px;color:var(--text3)}
-.deposit-usd-display{font-size:28px;font-weight:600;font-family:var(--fm);color:var(--mint);text-align:center;margin-bottom:4px}
-.deposit-bnb-display{font-size:12px;color:var(--text3);text-align:center;margin-bottom:14px}
-.range-slider{-webkit-appearance:none;appearance:none;width:100%;height:6px;border-radius:4px;background:var(--border);outline:none;cursor:pointer}
-.range-slider::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:20px;height:20px;border-radius:50%;background:var(--mint);cursor:pointer;box-shadow:0 0 8px rgba(0,201,167,.4)}
-.range-slider::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--mint);cursor:pointer;border:none;box-shadow:0 0 8px rgba(0,201,167,.4)}
-.range-limits{display:flex;justify-content:space-between;font-size:11px;color:var(--text3);font-family:var(--fm);margin-top:6px}
-.deposit-input-wrap{position:relative;margin-bottom:10px}
-.deposit-input-wrap input{width:100%;background:var(--card2);border:1px solid var(--border);color:var(--text);font-family:var(--fm);font-size:22px;font-weight:600;padding:12px 52px 12px 16px;border-radius:var(--radius-sm);outline:none;transition:border .2s;text-align:center}
-.deposit-input-wrap input:focus{border-color:var(--mint)}
-.deposit-input-wrap .input-unit{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:14px;font-family:var(--fm);font-weight:500}
-.deposit-input-error{font-size:11px;color:#FF6B6B;text-align:center;min-height:16px;margin-bottom:4px}
+.input-wrap{position:relative;margin-bottom:12px}
+.input-wrap input{width:100%;background:var(--card2);border:1px solid var(--border);color:var(--text);font-family:var(--fm);font-size:16px;padding:13px 60px 13px 16px;border-radius:var(--radius-sm);outline:none;transition:border .2s}
+.input-wrap input:focus{border-color:var(--blue)}
+.input-unit{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:13px;font-family:var(--fm)}
+/* ── Deposit selector ── */
+.deposit-usd-input{width:100%;background:var(--card2);border:1px solid var(--border);color:var(--mint);font-family:var(--fm);font-size:28px;font-weight:600;padding:12px 52px 12px 16px;border-radius:var(--radius-sm);outline:none;transition:border .2s;text-align:center;margin-bottom:4px}
+.deposit-usd-input:focus{border-color:var(--mint)}
+.deposit-usd-wrap{position:relative;margin-bottom:4px}
+.deposit-usd-wrap .usd-label{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:14px;font-family:var(--fm)}
+.deposit-error{font-size:11px;color:#FF6B6B;text-align:center;min-height:16px;margin-bottom:4px}
+.deposit-bnb{font-size:12px;color:var(--text3);text-align:center;margin-bottom:12px}
+.range-slider{-webkit-appearance:none;appearance:none;width:100%;height:6px;border-radius:4px;background:var(--border);outline:none;cursor:pointer;margin-bottom:4px}
+.range-slider::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--mint);cursor:pointer;box-shadow:0 0 8px rgba(0,201,167,.4)}
+.range-slider::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--mint);cursor:pointer;border:none}
+.range-limits{display:flex;justify-content:space-between;font-size:11px;color:var(--text3);font-family:var(--fm);margin-bottom:12px}
 </style>
 </head>
 <body>
@@ -157,7 +141,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 4
 
 <div style="background:linear-gradient(90deg,rgba(26,110,255,.1),rgba(26,110,255,.04));border-bottom:1px solid rgba(26,110,255,.2);padding:11px 40px;display:flex;align-items:center;gap:10px;font-size:13px;color:var(--blue2)">
   <span style="font-size:16px">&#9888;&#65039;</span>
-  <span><strong style="color:var(--text)">Fase de pruebas &mdash; tope temporal de $10 USD por inversor.</strong> Este limite subira progresivamente conforme el bot demuestre consistencia con mayor capital.</span>
+  <span><strong style="color:var(--text)">Fase de pruebas &mdash; depositos entre $20 y $100 USD.</strong> El limite se ampliara progresivamente conforme el bot demuestre consistencia.</span>
 </div>
 
 <div class="hero">
@@ -216,7 +200,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 4
         <div class="stat-row"><span class="stat-row-label">Ganancias distribuidas</span><span class="stat-row-val mint" id="sTotalProf">+-- BNB</span></div>
         <div class="stat-row"><span class="stat-row-label">Balance del contrato</span><span class="stat-row-val" id="sContBal">-- BNB</span></div>
         <div class="stat-row"><span class="stat-row-label">Red</span><span class="stat-row-val">BSC Mainnet</span></div>
-        <div class="stat-row"><span class="stat-row-label">Contrato verificado</span><span class="stat-row-val mint">&#10003; BscScan</span></div>
+        <div class="stat-row"><span class="stat-row-label">Contrato verificado</span><span class="stat-row-val mint">&#10003; Sourcify</span></div>
       </div>
     </div>
 
@@ -246,11 +230,11 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 4
         </div>
         <div class="faq-item">
           <div class="faq-q" onclick="toggleFaq(this)">Es seguro? Quien controla mis fondos?<span class="faq-icon">+</span></div>
-          <div class="faq-a">Tus fondos estan en un contrato inteligente verificado en BSC. El codigo es publico y auditable en BscScan en cualquier momento.</div>
+          <div class="faq-a">Tus fondos estan en un contrato inteligente verificado en BSC. El codigo es publico y auditable en cualquier momento.</div>
         </div>
         <div class="faq-item">
-          <div class="faq-q" onclick="toggleFaq(this)">Cual es el minimo para invertir?<span class="faq-icon">+</span></div>
-          <div class="faq-a">El deposito es de exactamente $10 USD en BNB al precio actual. El contrato usa Chainlink para calcular el equivalente en BNB en tiempo real.</div>
+          <div class="faq-q" onclick="toggleFaq(this)">Cual es el rango de inversion?<span class="faq-icon">+</span></div>
+          <div class="faq-a">Puedes depositar entre $20 y $100 USD en BNB. El contrato usa Chainlink para calcular el equivalente en BNB en tiempo real segun el precio actual.</div>
         </div>
       </div>
     </div>
@@ -260,11 +244,19 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 4
     <div class="card">
       <div class="card-title">Depositar BNB</div>
 
-      <div style="text-align:center;padding:12px 0 8px">
-        <div style="font-size:13px;color:var(--text3);margin-bottom:4px">Monto fijo de deposito</div>
-        <div style="font-size:32px;font-weight:600;font-family:var(--fm);color:var(--mint)">$10 USD</div>
-        <div style="font-size:13px;color:var(--text3);margin-top:4px" id="depositBNBDisplay">&#8776; cargando... BNB</div>
+      <!-- Selector de monto -->
+      <div class="deposit-usd-wrap">
+        <input type="number" class="deposit-usd-input" id="depositUSDInput"
+          min="20" max="100" step="1" value="20"
+          oninput="onInputChange(this.value)">
+        <span class="usd-label">USD</span>
       </div>
+      <div class="deposit-error" id="depositError"></div>
+      <div class="deposit-bnb" id="depositBNBDisplay">&#8776; cargando... BNB</div>
+      <input type="range" class="range-slider" id="depositSlider"
+        min="20" max="100" step="1" value="20"
+        oninput="onSliderChange(this.value)">
+      <div class="range-limits"><span>$20 USD</span><span>$100 USD</span></div>
 
       <div class="stat-row" style="padding:10px 0">
         <span class="stat-row-label">Tu cuota estimada</span>
@@ -293,8 +285,8 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 4
         </div>
       </div>
       <div style="margin-top:12px;text-align:center">
-        <a href="https://bscscan.com/address/0x9a15cAe8EDfeac98D831272dB827B5C39d711d89" target="_blank" style="display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--mint);text-decoration:none;border:1px solid rgba(0,201,167,.2);padding:6px 14px;border-radius:20px;">
-          &#128269; Ver contrato en BSCScan
+        <a href="https://repo.sourcify.dev/56/0x83AE9b980342FAC9F648Ce72d8fCf1E4f584f67c/" target="_blank" style="display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--mint);text-decoration:none;border:1px solid rgba(0,201,167,.2);padding:6px 14px;border-radius:20px;">
+          &#128269; Ver contrato verificado
         </a>
       </div>
     </div>
@@ -363,7 +355,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 4
 
 <script src="ethers.umd.min.js"></script>
 <script>
-const CONTRACT_ADDRESS = "0x9a15cAe8EDfeac98D831272dB827B5C39d711d89";
+const CONTRACT_ADDRESS = "0x83AE9b980342FAC9F648Ce72d8fCf1E4f584f67c";
 const OWNER_ADDRESS    = "0x96136c50179581b7abc8f3a4df476c6f1f110cd1";
 const BSC_CHAIN_ID     = 56;
 const POOL_CAP_BNB     = 100;
@@ -371,7 +363,9 @@ const POOL_CAP_BNB     = 100;
 const CONTRACT_ABI = [
   {"inputs":[],"name":"deposit","outputs":[],"stateMutability":"payable","type":"function"},
   {"inputs":[],"name":"withdraw","outputs":[],"stateMutability":"nonpayable","type":"function"},
-  {"inputs":[],"name":"getRequiredBNB","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
+  {"inputs":[],"name":"getMinRequiredBNB","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
+  {"inputs":[],"name":"getMaxRequiredBNB","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
+  {"inputs":[],"name":"getBNBPrice","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
   {"inputs":[{"internalType":"address","name":"_addr","type":"address"}],"name":"getWithdrawPreview","outputs":[{"internalType":"uint256","name":"capitalInvertido","type":"uint256"},{"internalType":"uint256","name":"gananciasAcumuladas","type":"uint256"},{"internalType":"uint256","name":"pagoAlEquipo","type":"uint256"},{"internalType":"uint256","name":"recibirasNeto","type":"uint256"}],"stateMutability":"view","type":"function"},
   {"inputs":[{"internalType":"address","name":"_addr","type":"address"}],"name":"getInvestor","outputs":[{"internalType":"uint256","name":"capital","type":"uint256"},{"internalType":"uint256","name":"earnedProfits","type":"uint256"},{"internalType":"uint256","name":"totalEarned","type":"uint256"},{"internalType":"uint256","name":"joinedAt","type":"uint256"},{"internalType":"uint256","name":"sharePercent","type":"uint256"}],"stateMutability":"view","type":"function"},
   {"inputs":[],"name":"totalInvested","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
@@ -385,20 +379,60 @@ const CONTRACT_ABI = [
 let provider,signer,contract,userAddress;
 let poolData={totalInvested:0,investorCount:0,contractBalance:0,totalProfits:0};
 let userData={capital:0,profits:0,neto:0,share:0,joinedAt:0};
-let requiredBNB=0;
+let minBNB=0,maxBNB=0,bnbPrice=0;
+let selectedUSD=20;
 
-// â”€â”€ Deposit fijo $10 USD via Chainlink â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// ── Slider + Input ────────────────────────────────────────────
+function onSliderChange(val){
+  selectedUSD=parseInt(val);
+  document.getElementById('depositUSDInput').value=selectedUSD;
+  document.getElementById('depositError').textContent='';
+  actualizarBNBDisplay();
+  actualizarCuotaEstimada();
+}
 
+function onInputChange(val){
+  const num=parseInt(val);
+  const errEl=document.getElementById('depositError');
+  if(isNaN(num)||val===''){errEl.textContent='';return;}
+  if(num<20){
+    errEl.textContent='Minimo $20 USD';
+    selectedUSD=20;
+    document.getElementById('depositSlider').value=20;
+  } else if(num>100){
+    errEl.textContent='Maximo $100 USD';
+    selectedUSD=100;
+    document.getElementById('depositSlider').value=100;
+  } else {
+    errEl.textContent='';
+    selectedUSD=num;
+    document.getElementById('depositSlider').value=num;
+  }
+  actualizarBNBDisplay();
+  actualizarCuotaEstimada();
+}
 
-function actualizarCuotaEstimada(){
-  if(requiredBNB > 0){
-    const pool = poolData.totalInvested || 0;
-    const share = ((requiredBNB / (pool + requiredBNB)) * 100).toFixed(2) + '%';
-    document.getElementById('estimatedShare').textContent = share;
+function actualizarBNBDisplay(){
+  if(bnbPrice>0){
+    const bnbAmt=(selectedUSD*1e8)/bnbPrice;
+    document.getElementById('depositBNBDisplay').textContent='\u2248 '+bnbAmt.toFixed(4)+' BNB';
   }
 }
 
-// â”€â”€ Wallet â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+function getSelectedWei(){
+  if(bnbPrice===0) return null;
+  return BigInt(Math.floor(selectedUSD*1e8))*BigInt('1000000000000000000')/BigInt(Math.floor(bnbPrice));
+}
+
+function actualizarCuotaEstimada(){
+  if(bnbPrice>0){
+    const bnbAmt=(selectedUSD*1e8)/bnbPrice;
+    const pool=poolData.totalInvested||0;
+    document.getElementById('estimatedShare').textContent=((bnbAmt/(pool+bnbAmt))*100).toFixed(2)+'%';
+  }
+}
+
+// ── Wallet ────────────────────────────────────────────────────
 async function toggleWallet(){
   if(userAddress){desconectarWallet();return;}
   await conectarWallet();
@@ -444,22 +478,24 @@ function desconectarWallet(){
 async function cargarDatos(){
   if(!contract)return;
   try{
-    const[totalInv,totalProf,contBal,invCount,reqBNB]=await Promise.all([
+    const[totalInv,totalProf,contBal,invCount,minBNBRaw,maxBNBRaw,bnbPriceRaw]=await Promise.all([
       contract.totalInvested(),
       contract.totalProfitsDeposited(),
       contract.contractBalance(),
       contract.activeInvestorCount(),
-      contract.getRequiredBNB()
+      contract.getMinRequiredBNB(),
+      contract.getMaxRequiredBNB(),
+      contract.getBNBPrice()
     ]);
     poolData.totalInvested=parseFloat(ethers.formatEther(totalInv));
     poolData.totalProfits=parseFloat(ethers.formatEther(totalProf));
     poolData.contractBalance=parseFloat(ethers.formatEther(contBal));
     poolData.investorCount=Number(invCount);
-    requiredBNB=parseFloat(ethers.formatEther(reqBNB));
-
-    document.getElementById('depositBNBDisplay').textContent='â‰ˆ '+requiredBNB.toFixed(4)+' BNB';
+    minBNB=parseFloat(ethers.formatEther(minBNBRaw));
+    maxBNB=parseFloat(ethers.formatEther(maxBNBRaw));
+    bnbPrice=Number(bnbPriceRaw);
+    actualizarBNBDisplay();
     actualizarUIPool();
-
     if(userAddress){
       const[inv,preview]=await Promise.all([
         contract.getInvestor(userAddress),
@@ -509,12 +545,12 @@ function actualizarUIInversor(){
 
 function showDeposit(){
   if(!userAddress){showToast('Conecta tu wallet primero','error');return;}
-  if(requiredBNB===0){showToast('Cargando precio BNB...','error');return;}
+  if(bnbPrice===0){showToast('Cargando precio BNB...','error');return;}
+  const bnbAmt=(selectedUSD*1e8)/bnbPrice;
   const pool=poolData.totalInvested||0;
-  const share=((requiredBNB/(pool+requiredBNB))*100).toFixed(2)+'%';
-  document.getElementById('mdepUSD').textContent='$10 USD';
-  document.getElementById('mdepAmount').textContent=requiredBNB.toFixed(4)+' BNB';
-  document.getElementById('mdepShare').textContent=share;
+  document.getElementById('mdepUSD').textContent='$'+selectedUSD+' USD';
+  document.getElementById('mdepAmount').textContent=bnbAmt.toFixed(4)+' BNB';
+  document.getElementById('mdepShare').textContent=((bnbAmt/(pool+bnbAmt))*100).toFixed(2)+'%';
   document.getElementById('depositModal').classList.add('show');
 }
 
@@ -534,18 +570,18 @@ function closeModals(){
 async function confirmDeposit(){
   closeModals();
   if(!contract){showToast('Contrato no conectado','error');return;}
+  const weiAmt=getSelectedWei();
+  if(!weiAmt){showToast('Error calculando monto','error');return;}
   try{
-    showToast('Calculando monto en BNB...','info');
-    const requiredWei=await contract.getRequiredBNB();
     showToast('Confirmando en wallet...','info');
-    const tx=await contract.deposit({value:requiredWei});
+    const tx=await contract.deposit({value:weiAmt});
     showToast('Transaccion enviada, esperando confirmacion...','info');
     await tx.wait();
     showToast('Deposito exitoso!','success');
     await cargarDatos();
   }catch(e){
     if(e.code===4001)showToast('Transaccion cancelada','error');
-    else showToast('Error en deposito: '+e.message?.slice(0,60),'error');
+    else showToast('Error: '+e.message?.slice(0,60),'error');
     console.error(e);
   }
 }
