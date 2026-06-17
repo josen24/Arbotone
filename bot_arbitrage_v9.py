@@ -20,8 +20,8 @@ from guardar_datos import registrar_evento_mercado
 # ────────────────────────────────────────────────────────────
 #  CREDENCIALES — se leen de variables de entorno
 # ────────────────────────────────────────────────────────────
-API_KEY    = os.getenv("BINANCE_API_KEY", "TU_API_KEY_MAINNET")
-API_SECRET = os.getenv("BINANCE_API_SECRET", "TU_API_SECRET_MAINNET")
+API_KEY    = "kEw4BOltbnDGUjgq10CW1MeXPYTryhPExLdSjK6iB178gvVKwzbNIsGpGqZE3IDe"
+API_SECRET = "kEw4BOltbnDGUjgq10CW1MeXPYTryhPExLdSjK6iB178gvVKwzbNIsGpGqZE3IDe"
 
 # ── Parámetros v9 ───────────────────────────────────────────
 TRADE_PCT      = 0.30
