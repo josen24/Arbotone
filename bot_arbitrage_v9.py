@@ -11,16 +11,17 @@ import threading
 import logging
 import asyncio
 import json
+import os
 import websockets
 from binance.client import Client
 from cerebro_ia import analizar_oportunidad
 from guardar_datos import registrar_evento_mercado
 
 # ────────────────────────────────────────────────────────────
-#  CREDENCIALES — pon tus keys de mainnet aquí
+#  CREDENCIALES — se leen de variables de entorno
 # ────────────────────────────────────────────────────────────
-API_KEY    = "TU_API_KEY_MAINNET"
-API_SECRET = "TU_API_SECRET_MAINNET"
+API_KEY    = os.getenv("BINANCE_API_KEY", "TU_API_KEY_MAINNET")
+API_SECRET = os.getenv("BINANCE_API_SECRET", "TU_API_SECRET_MAINNET")
 
 # ── Parámetros v9 ───────────────────────────────────────────
 TRADE_PCT      = 0.30
@@ -39,8 +40,8 @@ WEIGHT_PAUSE   = 0.80
 
 # ── Contrato BSC ─────────────────────────────────────────────
 CONTRACT_ENABLED  = True
-CONTRACT_ADDRESS  = "TU_CONTRACT_ADDRESS"
-BOT_WALLET_PK     = "TU_PRIVATE_KEY"
+CONTRACT_ADDRESS  = os.getenv("CONTRACT_ADDRESS", "TU_CONTRACT_ADDRESS")
+BOT_WALLET_PK     = os.getenv("BOT_WALLET_PK", "TU_PRIVATE_KEY")
 BSC_RPC           = "https://bsc-dataseed1.binance.org/"
 
 CONTRACT_ABI = [
