@@ -57,16 +57,11 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 4
 .btn-primary:hover{background:var(--blue2);transform:translateY(-1px)}
 .btn-secondary{flex:1;background:transparent;color:var(--text2);border:1px solid var(--border);padding:13px;border-radius:var(--radius-sm);font-family:var(--ff);font-size:14px;font-weight:500;cursor:pointer;transition:all .2s}
 .btn-secondary:hover{border-color:var(--text3);color:var(--text)}
-.pool-bar-wrap{margin-bottom:20px}
-.pool-bar-label{display:flex;justify-content:space-between;font-size:12px;color:var(--text3);margin-bottom:8px}
-.pool-bar{height:6px;background:var(--border);border-radius:4px;overflow:hidden}
-.pool-bar-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--mint));border-radius:4px;transition:width 1s ease}
 .stat-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--border)}
 .stat-row:last-child{border-bottom:none}
 .stat-row-label{font-size:13px;color:var(--text2)}
 .stat-row-val{font-size:14px;font-weight:500;font-family:var(--fm);color:var(--text)}
 .stat-row-val.mint{color:var(--mint)}
-.tx-list{display:flex;flex-direction:column;gap:8px}
 .faq-item{border-bottom:1px solid var(--border);overflow:hidden}
 .faq-q{display:flex;justify-content:space-between;align-items:center;padding:18px 0;cursor:pointer;font-size:14px;font-weight:500;color:var(--text);transition:color .2s;gap:12px}
 .faq-q:hover{color:var(--blue2)}
@@ -87,8 +82,8 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 4
 .preview-row.total{border-top:1px solid var(--border);margin-top:8px;padding-top:14px}
 .preview-row.total .val{color:var(--mint);font-size:18px}
 .modal-actions{display:flex;gap:10px}
-.btn-cancel{flex:1;background:transparent;border:1px solid var(--border);color:var(--text2);padding:12px;border-radius:var(--radius-sm);font-family:var(--ff);font-size:14px;cursor:pointer}
-.btn-confirm{flex:2;background:var(--mint);color:var(--navy);border:none;padding:12px;border-radius:var(--radius-sm);font-family:var(--ff);font-size:14px;font-weight:600;cursor:pointer}
+.btn-cancel{flex:1;background:transparent;border:1px solid var(--border);color:var(--text2);padding:12px;border-radius:var(--radius-sm);font-family:var(--ff);font-size:14px;cursor:pointer;transition:all .2s}
+.btn-confirm{flex:2;background:var(--mint);color:var(--navy);border:none;padding:12px;border-radius:var(--radius-sm);font-family:var(--ff);font-size:14px;font-weight:600;cursor:pointer;transition:all .2s}
 .btn-confirm:hover{background:var(--mint2)}
 .notice{background:rgba(26,110,255,.08);border:1px solid rgba(26,110,255,.2);border-radius:var(--radius-sm);padding:12px 16px;font-size:12px;color:var(--blue2);margin-top:16px;line-height:1.6}
 .notice strong{color:var(--text)}
@@ -99,30 +94,13 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 4
 .panel.active{display:block}
 @keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
 .card{animation:fadeUp .4s ease both}
-#operatorPanel{display:none}
-#operatorPanel.visible{display:block}
-.operator-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(245,166,35,.12);border:1px solid rgba(245,166,35,.3);color:var(--gold);font-size:11px;font-weight:600;padding:4px 10px;border-radius:20px;letter-spacing:.4px;text-transform:uppercase;margin-bottom:16px}
-.op-stat{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border)}
-.op-stat:last-of-type{border-bottom:none}
-.op-stat-label{font-size:12px;color:var(--text3)}
-.op-stat-val{font-size:14px;font-weight:600;font-family:var(--fm);color:var(--text)}
-.btn-operator{width:100%;background:linear-gradient(135deg,var(--gold),#e8920a);color:var(--navy);border:none;padding:13px;border-radius:var(--radius-sm);font-family:var(--ff);font-size:14px;font-weight:700;cursor:pointer;margin-top:12px}
-.btn-operator:disabled{opacity:.5;cursor:not-allowed}
-.input-wrap{position:relative;margin-bottom:12px}
-.input-wrap input{width:100%;background:var(--card2);border:1px solid var(--border);color:var(--text);font-family:var(--fm);font-size:16px;padding:13px 60px 13px 16px;border-radius:var(--radius-sm);outline:none;transition:border .2s}
-.input-wrap input:focus{border-color:var(--blue)}
-.input-unit{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:13px;font-family:var(--fm)}
-/* ── Deposit selector ── */
-.deposit-usd-input{width:100%;background:var(--card2);border:1px solid var(--border);color:var(--mint);font-family:var(--fm);font-size:28px;font-weight:600;padding:12px 52px 12px 16px;border-radius:var(--radius-sm);outline:none;transition:border .2s;text-align:center;margin-bottom:4px}
-.deposit-usd-input:focus{border-color:var(--mint)}
-.deposit-usd-wrap{position:relative;margin-bottom:4px}
-.deposit-usd-wrap .usd-label{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:14px;font-family:var(--fm)}
-.deposit-error{font-size:11px;color:#FF6B6B;text-align:center;min-height:16px;margin-bottom:4px}
-.deposit-bnb{font-size:12px;color:var(--text3);text-align:center;margin-bottom:12px}
-.range-slider{-webkit-appearance:none;appearance:none;width:100%;height:6px;border-radius:4px;background:var(--border);outline:none;cursor:pointer;margin-bottom:4px}
-.range-slider::-webkit-slider-thumb{-webkit-appearance:none;width:20px;height:20px;border-radius:50%;background:var(--mint);cursor:pointer;box-shadow:0 0 8px rgba(0,201,167,.4)}
-.range-slider::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:var(--mint);cursor:pointer;border:none}
-.range-limits{display:flex;justify-content:space-between;font-size:11px;color:var(--text3);font-family:var(--fm);margin-bottom:12px}
+.deposit-address-box{background:var(--card2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px;margin-bottom:14px;text-align:center}
+.deposit-address-val{font-family:var(--fm);font-size:13px;color:var(--mint);word-break:break-all;margin:8px 0}
+.btn-copy{background:transparent;border:1px solid rgba(0,201,167,.35);color:var(--mint);padding:8px 16px;border-radius:8px;font-family:var(--ff);font-size:12px;font-weight:500;cursor:pointer;transition:all .2s}
+.btn-copy:hover{background:rgba(0,201,167,.12)}
+.network-warn{background:rgba(255,107,107,.1);border:1px solid rgba(255,107,107,.3);color:#FF6B6B;border-radius:var(--radius-sm);padding:10px 14px;font-size:12px;margin-bottom:14px;display:none}
+.network-warn.show{display:block}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(--mint);display:inline-block;animation:pulse 1.4s infinite;margin-right:6px}
 </style>
 </head>
 <body>
@@ -141,17 +119,17 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 4
 
 <div style="background:linear-gradient(90deg,rgba(26,110,255,.1),rgba(26,110,255,.04));border-bottom:1px solid rgba(26,110,255,.2);padding:11px 40px;display:flex;align-items:center;gap:10px;font-size:13px;color:var(--blue2)">
   <span style="font-size:16px">&#9888;&#65039;</span>
-  <span><strong style="color:var(--text)">Fase de pruebas &mdash; depositos entre $20 y $100 USD.</strong> El limite se ampliara progresivamente conforme el bot demuestre consistencia.</span>
+  <span><strong style="color:var(--text)">Fase de pruebas &mdash; tope temporal de $10 USD por inversor.</strong> Este limite subira progresivamente conforme el bot demuestre consistencia con mayor capital.</span>
 </div>
 
 <div class="hero">
   <div class="hero-tag">&#9889; En vivo &middot; BSC Mainnet</div>
   <h1>Tu dinero trabaja.<br><strong>Tu cobras los frutos.</strong></h1>
-  <p>Bot de arbitraje triangular 100% automatizado. Deposita BNB, el bot opera, tu recibes tu parte proporcional de las ganancias.</p>
+  <p>Bot de trading 100% automatizado. Depositas, el bot opera, tu rendimiento se acumula en tiempo real proporcional al desempeno real del bot.</p>
   <div class="hero-stats">
-    <div class="hstat"><div class="hstat-val" id="heroTVL">-- BNB</div><div class="hstat-label">Total invertido</div></div>
+    <div class="hstat"><div class="hstat-val" id="heroTVL">--</div><div class="hstat-label">Total invertido</div></div>
     <div class="hstat"><div class="hstat-val" id="heroInvestors">--</div><div class="hstat-label">Inversores activos</div></div>
-    <div class="hstat"><div class="hstat-val" id="heroProfit">+3.14%</div><div class="hstat-label">Rendimiento 30d</div></div>
+    <div class="hstat"><div class="hstat-val" id="heroProfit">--</div><div class="hstat-label">Rendimiento hoy</div></div>
   </div>
 </div>
 
@@ -159,8 +137,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 4
   <div>
     <div class="tabs">
       <button class="tab active" onclick="showTab('dashboard',this)">Mi Dashboard</button>
-      <button class="tab" onclick="showTab('stats',this)">Estadisticas</button>
-      <button class="tab" onclick="showTab('history',this)">Historial</button>
+      <button class="tab" onclick="showTab('live',this)">Bot en vivo</button>
       <button class="tab" onclick="showTab('faq',this)">Como funciona</button>
     </div>
 
@@ -168,48 +145,35 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 4
       <div class="card">
         <div class="card-title">Mi posicion</div>
         <div class="balance-display">
-          <div class="balance-label">Recibirias si retiras ahora</div>
-          <div class="balance-amount" id="netBalance">0.0000 <span>BNB</span></div>
-          <div class="balance-sub">Capital: <span id="capLabel">0.0000</span> BNB &middot; Ganancia neta: <span class="positive" id="netGain">+0.0000 BNB</span></div>
+          <div class="balance-label">Balance acumulado (sintetico, segun rendimiento real del bot)</div>
+          <div class="balance-amount" id="netBalance">0.00 <span>USD</span></div>
+          <div class="balance-sub">Capital: <span id="capLabel">0.00</span> USD &middot; Ganancia acumulada: <span class="positive" id="netGain">+0.00 USD</span></div>
         </div>
         <div class="metrics-grid">
-          <div class="metric"><div class="metric-label">Capital invertido</div><div class="metric-val" id="mCapital">0.0000 <span style="font-size:12px;color:var(--text3)">BNB</span></div></div>
-          <div class="metric"><div class="metric-label">Ganancias acumuladas</div><div class="metric-val mint" id="mProfits">+0.0000 <span style="font-size:12px">BNB</span></div></div>
-          <div class="metric"><div class="metric-label">Tu cuota del pool</div><div class="metric-val gold" id="mShare">0.00%</div></div>
+          <div class="metric"><div class="metric-label">Capital invertido</div><div class="metric-val" id="mCapital">0.00 <span style="font-size:12px;color:var(--text3)">USD</span></div></div>
+          <div class="metric"><div class="metric-label">Ganancias acumuladas</div><div class="metric-val mint" id="mProfits">+0.00 <span style="font-size:12px">USD</span></div></div>
+          <div class="metric"><div class="metric-label">Tope maximo diario (+2%)</div><div class="metric-val gold" id="mDailyCap">0.00 USD</div></div>
           <div class="metric"><div class="metric-label">Dias en el pool</div><div class="metric-val" id="daysIn">--</div></div>
         </div>
         <div class="action-row">
           <button class="btn-primary" onclick="showDeposit()">+ Depositar</button>
-          <button class="btn-secondary" onclick="showWithdraw()">Retirar</button>
+          <button class="btn-secondary" onclick="showWithdraw()">Solicitar retiro</button>
         </div>
         <div class="notice">
-          <strong>Como funciona el retiro?</strong> Siempre recibes tu saldo neto. La comision del 15% se descuenta automaticamente de tus ganancias.
+          <strong>Como funciona ahora?</strong> Los depositos se envian directamente a la wallet de operacion (ya no via smart contract). Tu balance se mueve cada dia segun el rendimiento REAL del bot: si el bot gana, tu ganas (maximo +2% mostrado por dia); si el bot pierde, tu balance tambien baja proporcionalmente. No se reinicia hasta que solicites un retiro.
         </div>
       </div>
     </div>
 
-    <div class="panel" id="tab-stats">
+    <div class="panel" id="tab-live">
       <div class="card">
-        <div class="card-title">Estado del pool</div>
-        <div class="pool-bar-wrap">
-          <div class="pool-bar-label"><span>Capacidad utilizada</span><span id="poolBarText">-- / 100 BNB</span></div>
-          <div class="pool-bar"><div class="pool-bar-fill" id="poolBarFill" style="width:0%"></div></div>
-        </div>
-        <div class="stat-row"><span class="stat-row-label">Total invertido</span><span class="stat-row-val" id="sTotalInv">-- BNB</span></div>
-        <div class="stat-row"><span class="stat-row-label">Inversores activos</span><span class="stat-row-val" id="sInvestors">--</span></div>
-        <div class="stat-row"><span class="stat-row-label">Ganancias distribuidas</span><span class="stat-row-val mint" id="sTotalProf">+-- BNB</span></div>
-        <div class="stat-row"><span class="stat-row-label">Balance del contrato</span><span class="stat-row-val" id="sContBal">-- BNB</span></div>
-        <div class="stat-row"><span class="stat-row-label">Red</span><span class="stat-row-val">BSC Mainnet</span></div>
-        <div class="stat-row"><span class="stat-row-label">Contrato verificado</span><span class="stat-row-val mint">&#10003; Sourcify</span></div>
-      </div>
-    </div>
-
-    <div class="panel" id="tab-history">
-      <div class="card">
-        <div class="card-title">Historial de transacciones</div>
-        <div class="tx-list" id="txList">
-          <div style="color:var(--text3);font-size:13px;text-align:center;padding:20px">Conecta tu wallet para ver tu historial</div>
-        </div>
+        <div class="card-title"><span class="live-dot"></span>Bot en vivo</div>
+        <div class="stat-row"><span class="stat-row-label">Estado</span><span class="stat-row-val mint" id="liveStatus">Conectando...</span></div>
+        <div class="stat-row"><span class="stat-row-label">Balance de cuenta</span><span class="stat-row-val" id="liveBalance">--</span></div>
+        <div class="stat-row"><span class="stat-row-label">Operaciones ganadas</span><span class="stat-row-val mint" id="liveWins">--</span></div>
+        <div class="stat-row"><span class="stat-row-label">Operaciones perdidas</span><span class="stat-row-val" id="liveLosses">--</span></div>
+        <div class="stat-row"><span class="stat-row-label">Ultima actualizacion</span><span class="stat-row-val" id="liveUpdated">--</span></div>
+        <div class="notice"><strong>Nota:</strong> esta seccion se conecta al backend (Railway/FastAPI) que monitorea la cuenta MT5 en tiempo real. Configura <span style="font-family:var(--fm)">BACKEND_URL</span> en el script para activarla.</div>
       </div>
     </div>
 
@@ -217,24 +181,20 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 4
       <div class="card">
         <div class="card-title">Como funciona</div>
         <div class="faq-item">
-          <div class="faq-q" onclick="toggleFaq(this)">Que es el arbitraje triangular?<span class="faq-icon">+</span></div>
-          <div class="faq-a">El bot busca diferencias de precio entre tres pares de criptomonedas. Si hay una diferencia favorable, ejecuta las tres operaciones en milisegundos y genera una ganancia que se distribuye entre todos los inversores.</div>
+          <div class="faq-q" onclick="toggleFaq(this)">Como deposito ahora?<span class="faq-icon">+</span></div>
+          <div class="faq-a">Envias el monto directamente a la wallet de operacion en BSC que se muestra en el panel de deposito. Una vez confirmada la transaccion, tu capital se activa en el dashboard.</div>
         </div>
         <div class="faq-item">
-          <div class="faq-q" onclick="toggleFaq(this)">Cuando recibo mis ganancias?<span class="faq-icon">+</span></div>
-          <div class="faq-a">Las ganancias se distribuyen automaticamente cada vez que el bot ejecuta una operacion rentable. Llegan directamente a tu wallet sin que tengas que hacer nada.</div>
+          <div class="faq-q" onclick="toggleFaq(this)">Como se calculan mis ganancias?<span class="faq-icon">+</span></div>
+          <div class="faq-a">Tu balance sintetico crece proporcionalmente al rendimiento real del bot, con un tope de hasta 2% acumulado por dia. Este acumulado no se reinicia: sigue creciendo dia tras dia hasta que solicites un retiro.</div>
         </div>
         <div class="faq-item">
-          <div class="faq-q" onclick="toggleFaq(this)">Puedo retirar en cualquier momento?<span class="faq-icon">+</span></div>
-          <div class="faq-a">Si. Puedes retirar tu capital en cualquier momento. Siempre ves el numero final, sin cobros adicionales.</div>
+          <div class="faq-q" onclick="toggleFaq(this)">Como retiro?<span class="faq-icon">+</span></div>
+          <div class="faq-a">Solicitas el retiro desde el dashboard y se procesa manualmente desde la wallet de operacion a tu wallet.</div>
         </div>
         <div class="faq-item">
-          <div class="faq-q" onclick="toggleFaq(this)">Es seguro? Quien controla mis fondos?<span class="faq-icon">+</span></div>
-          <div class="faq-a">Tus fondos estan en un contrato inteligente verificado en BSC. El codigo es publico y auditable en cualquier momento.</div>
-        </div>
-        <div class="faq-item">
-          <div class="faq-q" onclick="toggleFaq(this)">Cual es el rango de inversion?<span class="faq-icon">+</span></div>
-          <div class="faq-a">Puedes depositar entre $20 y $100 USD en BNB. El contrato usa Chainlink para calcular el equivalente en BNB en tiempo real segun el precio actual.</div>
+          <div class="faq-q" onclick="toggleFaq(this)">Cual es el minimo para invertir?<span class="faq-icon">+</span></div>
+          <div class="faq-a">El deposito inicial sugerido es de $10 USD equivalentes en BNB.</div>
         </div>
       </div>
     </div>
@@ -242,77 +202,21 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 4
 
   <div>
     <div class="card">
-      <div class="card-title">Depositar BNB</div>
-
-      <!-- Selector de monto -->
-      <div class="deposit-usd-wrap">
-        <input type="number" class="deposit-usd-input" id="depositUSDInput"
-          min="20" max="100" step="1" value="20"
-          oninput="onInputChange(this.value)">
-        <span class="usd-label">USD</span>
+      <div class="card-title">Depositar</div>
+      <div class="network-warn" id="networkWarn">Conecta tu wallet a BSC Mainnet para depositar de forma segura.</div>
+      <div style="text-align:center;padding:8px 0 4px">
+        <div style="font-size:13px;color:var(--text3);margin-bottom:4px">Monto sugerido de deposito</div>
+        <div style="font-size:32px;font-weight:600;font-family:var(--fm);color:var(--mint)">$10 USD</div>
       </div>
-      <div class="deposit-error" id="depositError"></div>
-      <div class="deposit-bnb" id="depositBNBDisplay">&#8776; cargando... BNB</div>
-      <input type="range" class="range-slider" id="depositSlider"
-        min="20" max="100" step="1" value="20"
-        oninput="onSliderChange(this.value)">
-      <div class="range-limits"><span>$20 USD</span><span>$100 USD</span></div>
-
-      <div class="stat-row" style="padding:10px 0">
-        <span class="stat-row-label">Tu cuota estimada</span>
-        <span class="stat-row-val" id="estimatedShare">--</span>
+      <div class="deposit-address-box">
+        <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.4px">Enviar BNB/BEP-20 a esta direccion</div>
+        <div class="deposit-address-val" id="depositAddress">0xb1F9217BB122F9A35995a73c5C9274Bc80BeD7D4</div>
+        <button class="btn-copy" onclick="copyAddress()">Copiar direccion</button>
       </div>
-      <div class="stat-row" style="padding:10px 0">
-        <span class="stat-row-label">Pool actual</span>
-        <span class="stat-row-val" id="sidePoolBal">-- BNB</span>
+      <div class="notice">
+        <strong>Importante:</strong> envia solo en la red BSC (BEP-20). Tras enviar, registra tu deposito para que se active en tu dashboard.
       </div>
-      <button class="btn-primary" style="width:100%;margin-top:16px" onclick="showDeposit()">Confirmar deposito</button>
-    </div>
-
-    <div class="card">
-      <div class="card-title">Distribucion de ganancias</div>
-      <div style="padding:8px 0">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
-          <span style="font-size:13px;color:var(--text2)">Inversores</span>
-          <span style="font-family:var(--fm);font-size:20px;font-weight:600;color:var(--mint)">85%</span>
-        </div>
-        <div style="height:8px;background:var(--border);border-radius:4px;overflow:hidden;margin-bottom:16px">
-          <div style="width:85%;height:100%;background:linear-gradient(90deg,var(--mint),var(--blue));border-radius:4px"></div>
-        </div>
-        <div style="display:flex;align-items:center;justify-content:space-between">
-          <span style="font-size:13px;color:var(--text2)">Plataforma</span>
-          <span style="font-family:var(--fm);font-size:14px;font-weight:500;color:var(--text3)">15%</span>
-        </div>
-      </div>
-      <div style="margin-top:12px;text-align:center">
-        <a href="https://repo.sourcify.dev/56/0x83AE9b980342FAC9F648Ce72d8fCf1E4f584f67c/" target="_blank" style="display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--mint);text-decoration:none;border:1px solid rgba(0,201,167,.2);padding:6px 14px;border-radius:20px;">
-          &#128269; Ver contrato verificado
-        </a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div id="operatorPanel">
-  <div style="max-width:1200px;margin:0 auto;padding:0 40px 60px">
-    <div class="card" style="border-color:rgba(245,166,35,.3)">
-      <div class="operator-badge">Panel de Operador</div>
-      <div class="card-title">Control del Pool</div>
-      <div class="op-stat"><span class="op-stat-label">Balance del contrato</span><span class="op-stat-val" id="opContractBal">--</span></div>
-      <div class="op-stat"><span class="op-stat-label">Total invertido</span><span class="op-stat-val" id="opTotalInv">--</span></div>
-      <div class="op-stat"><span class="op-stat-label">Profits depositados</span><span class="op-stat-val" id="opTotalProf">--</span></div>
-      <div class="op-stat"><span class="op-stat-label">Inversores activos</span><span class="op-stat-val" id="opInvestors">--</span></div>
-      <div style="margin-top:20px;padding-top:20px;border-top:1px solid var(--border)">
-        <div style="font-size:12px;color:var(--text3);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px">Depositar ganancias al pool</div>
-        <div class="input-wrap">
-          <input type="number" id="profitAmount" placeholder="0.00" min="0.001" step="0.001">
-          <span class="input-unit">BNB</span>
-        </div>
-        <button class="btn-operator" id="btnDepositProfits" onclick="depositProfits()">Depositar Ganancias</button>
-      </div>
-      <div style="margin-top:16px;padding-top:16px;border-top:1px solid var(--border)">
-        <button class="btn-operator" style="background:linear-gradient(135deg,#FF6B6B,#c0392b)" onclick="withdrawFees()">Retirar Fees del Equipo</button>
-      </div>
+      <button class="btn-primary" style="width:100%;margin-top:16px" onclick="showDeposit()">Ya envie, registrar deposito</button>
     </div>
   </div>
 </div>
@@ -320,18 +224,16 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 4
 <!-- Modal deposito -->
 <div class="modal-overlay" id="depositModal">
   <div class="modal">
-    <div class="modal-title">Confirmar deposito</div>
-    <div class="modal-sub">Se enviara BNB al contrato inteligente en BSC.</div>
+    <div class="modal-title">Registrar deposito</div>
+    <div class="modal-sub">Confirma que ya enviaste los fondos a la direccion de operacion en BSC.</div>
     <div class="preview-box">
-      <div class="preview-row"><span class="label">Monto USD</span><span class="val" id="mdepUSD">-- USD</span></div>
-      <div class="preview-row"><span class="label">Cantidad BNB</span><span class="val" id="mdepAmount">-- BNB</span></div>
-      <div class="preview-row"><span class="label">Red</span><span class="val">BSC Mainnet</span></div>
-      <div class="preview-row"><span class="label">Gas estimado</span><span class="val">~0.0004 BNB</span></div>
-      <div class="preview-row total"><span class="label" style="font-weight:500;color:var(--text)">Tu cuota tras deposito</span><span class="val" id="mdepShare">--</span></div>
+      <div class="preview-row"><span class="label">Direccion destino</span><span class="val" style="font-size:11px">0xb1F9...D7D4</span></div>
+      <div class="preview-row"><span class="label">Red</span><span class="val">BSC (BEP-20)</span></div>
+      <div class="preview-row total"><span class="label" style="font-weight:500;color:var(--text)">Monto enviado (USD)</span><span class="val"><input type="number" id="depositAmountInput" placeholder="10" style="width:90px;background:var(--card2);border:1px solid var(--border);color:var(--mint);font-family:var(--fm);font-size:16px;padding:6px 8px;border-radius:6px;text-align:right"></span></div>
     </div>
     <div class="modal-actions">
       <button class="btn-cancel" onclick="closeModals()">Cancelar</button>
-      <button class="btn-confirm" onclick="confirmDeposit()">Confirmar en wallet</button>
+      <button class="btn-confirm" onclick="confirmDeposit()">Confirmar deposito</button>
     </div>
   </div>
 </div>
@@ -339,100 +241,97 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 4
 <!-- Modal retiro -->
 <div class="modal-overlay" id="withdrawModal">
   <div class="modal">
-    <div class="modal-title">Vista previa del retiro</div>
-    <div class="modal-sub">Este es tu saldo neto. Ya incluye todas las ganancias y descuentos.</div>
+    <div class="modal-title">Solicitar retiro</div>
+    <div class="modal-sub">Tu solicitud se procesa manualmente desde la wallet de operacion.</div>
     <div class="preview-box">
-      <div class="preview-row"><span class="label">Capital invertido</span><span class="val" id="wCapital">-- BNB</span></div>
-      <div class="preview-row"><span class="label">Ganancias acumuladas</span><span class="val" id="wProfits" style="color:var(--mint)">+-- BNB</span></div>
-      <div class="preview-row total"><span class="label" style="font-weight:500;color:var(--text)">Recibiras en tu wallet</span><span class="val" id="wNeto" style="color:var(--mint);font-size:22px">-- BNB</span></div>
+      <div class="preview-row"><span class="label">Capital invertido</span><span class="val" id="wCapital">-- USD</span></div>
+      <div class="preview-row"><span class="label">Ganancias acumuladas</span><span class="val" id="wProfits" style="color:var(--mint)">+-- USD</span></div>
+      <div class="preview-row total"><span class="label" style="font-weight:500;color:var(--text)">Total a recibir</span><span class="val" id="wNeto" style="color:var(--mint);font-size:22px">-- USD</span></div>
     </div>
     <div class="modal-actions">
       <button class="btn-cancel" onclick="closeModals()">Cancelar</button>
-      <button class="btn-confirm" onclick="confirmWithdraw()">Retirar ahora</button>
+      <button class="btn-confirm" onclick="confirmWithdraw()">Solicitar retiro</button>
     </div>
   </div>
 </div>
 
 <script src="ethers.umd.min.js"></script>
 <script>
-const CONTRACT_ADDRESS = "0x83AE9b980342FAC9F648Ce72d8fCf1E4f584f67c";
-const OWNER_ADDRESS    = "0x96136c50179581b7abc8f3a4df476c6f1f110cd1";
-const BSC_CHAIN_ID     = 56;
-const POOL_CAP_BNB     = 100;
+/* ───────── Configuracion ───────── */
+const DEPOSIT_ADDRESS = "0xb1F9217BB122F9A35995a73c5C9274Bc80BeD7D4"; // wallet personal de operacion (BSC)
+const BSC_CHAIN_ID    = 56;
+const DAILY_CAP_PCT   = 0.02; // 2% acumulado por dia, proporcional al rendimiento real
+const BACKEND_URL     = ""; // TODO: pegar aqui la URL del backend FastAPI en Railway, ej: https://web-production-33de36.up.railway.app
 
-const CONTRACT_ABI = [
-  {"inputs":[],"name":"deposit","outputs":[],"stateMutability":"payable","type":"function"},
-  {"inputs":[],"name":"withdraw","outputs":[],"stateMutability":"nonpayable","type":"function"},
-  {"inputs":[],"name":"getMinRequiredBNB","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
-  {"inputs":[],"name":"getMaxRequiredBNB","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
-  {"inputs":[],"name":"getBNBPrice","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
-  {"inputs":[{"internalType":"address","name":"_addr","type":"address"}],"name":"getWithdrawPreview","outputs":[{"internalType":"uint256","name":"capitalInvertido","type":"uint256"},{"internalType":"uint256","name":"gananciasAcumuladas","type":"uint256"},{"internalType":"uint256","name":"pagoAlEquipo","type":"uint256"},{"internalType":"uint256","name":"recibirasNeto","type":"uint256"}],"stateMutability":"view","type":"function"},
-  {"inputs":[{"internalType":"address","name":"_addr","type":"address"}],"name":"getInvestor","outputs":[{"internalType":"uint256","name":"capital","type":"uint256"},{"internalType":"uint256","name":"earnedProfits","type":"uint256"},{"internalType":"uint256","name":"totalEarned","type":"uint256"},{"internalType":"uint256","name":"joinedAt","type":"uint256"},{"internalType":"uint256","name":"sharePercent","type":"uint256"}],"stateMutability":"view","type":"function"},
-  {"inputs":[],"name":"totalInvested","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
-  {"inputs":[],"name":"totalProfitsDeposited","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
-  {"inputs":[],"name":"contractBalance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
-  {"inputs":[],"name":"activeInvestorCount","outputs":[{"internalType":"uint256","name":"count","type":"uint256"}],"stateMutability":"view","type":"function"},
-  {"inputs":[],"name":"depositProfits","outputs":[],"stateMutability":"payable","type":"function"},
-  {"inputs":[],"name":"withdrawTeamFees","outputs":[],"stateMutability":"nonpayable","type":"function"}
-];
+let provider, signer, userAddress;
 
-let provider,signer,contract,userAddress;
-let poolData={totalInvested:0,investorCount:0,contractBalance:0,totalProfits:0};
-let userData={capital:0,profits:0,neto:0,share:0,joinedAt:0};
-let minBNB=0,maxBNB=0,bnbPrice=0;
-let selectedUSD=20;
-
-// ── Slider + Input ────────────────────────────────────────────
-function onSliderChange(val){
-  selectedUSD=parseInt(val);
-  document.getElementById('depositUSDInput').value=selectedUSD;
-  document.getElementById('depositError').textContent='';
-  actualizarBNBDisplay();
-  actualizarCuotaEstimada();
+/* ───────── Estado del inversor (sintetico, localStorage por wallet) ─────────
+   NOTA: esto es almacenamiento local en el navegador, sirve como placeholder
+   visual mientras se conecta a un backend real que persista esto por usuario.
+   Lo ideal es mover este estado a tu backend (Railway/FastAPI) cuanto antes,
+   para que no dependa del navegador del inversor. */
+function loadInvestor(addr){
+  const raw = localStorage.getItem('ap_investor_'+addr);
+  if(raw) return JSON.parse(raw);
+  return {capital:0, profitAccum:0, joinedAt:0, lastAccrualDay:null};
+}
+function saveInvestor(addr, data){
+  localStorage.setItem('ap_investor_'+addr, JSON.stringify(data));
 }
 
-function onInputChange(val){
-  const num=parseInt(val);
-  const errEl=document.getElementById('depositError');
-  if(isNaN(num)||val===''){errEl.textContent='';return;}
-  if(num<20){
-    errEl.textContent='Minimo $20 USD';
-    selectedUSD=20;
-    document.getElementById('depositSlider').value=20;
-  } else if(num>100){
-    errEl.textContent='Maximo $100 USD';
-    selectedUSD=100;
-    document.getElementById('depositSlider').value=100;
-  } else {
-    errEl.textContent='';
-    selectedUSD=num;
-    document.getElementById('depositSlider').value=num;
+function accrueDailyProfit(inv, dailyReturnPct){
+  // dailyReturnPct viene del backend: el % real que tuvo el bot ese dia,
+  // con tope de +2% si gano mas, pero SIN tope si perdio (puede ser negativo).
+  if(inv.capital<=0) return inv;
+  const today = new Date().toISOString().slice(0,10);
+  if(inv.lastAccrualDay !== today){
+    const pct = (typeof dailyReturnPct === 'number') ? dailyReturnPct : 0;
+    inv.profitAccum += inv.capital * (pct/100);
+    inv.lastAccrualDay = today;
   }
-  actualizarBNBDisplay();
-  actualizarCuotaEstimada();
+  return inv;
 }
 
-function actualizarBNBDisplay(){
-  if(bnbPrice>0){
-    const bnbAmt=(selectedUSD*1e8)/bnbPrice;
-    document.getElementById('depositBNBDisplay').textContent='\u2248 '+bnbAmt.toFixed(4)+' BNB';
+let userData = {capital:0, profits:0, neto:0, joinedAt:0};
+
+async function fetchDailyReturnPct(){
+  if(!BACKEND_URL) return 0;
+  try{
+    const res = await fetch(BACKEND_URL.replace(/\/$/,'')+'/api/crash1000/status');
+    const data = await res.json();
+    return data.daily_return_pct_investor ?? 0;
+  }catch(e){
+    console.error('No se pudo leer rendimiento real del bot:', e);
+    return 0;
   }
 }
 
-function getSelectedWei(){
-  if(bnbPrice===0) return null;
-  return BigInt(Math.floor(selectedUSD*1e8))*BigInt('1000000000000000000')/BigInt(Math.floor(bnbPrice));
-}
+async function refreshUserUI(){
+  if(!userAddress) return;
+  let inv = loadInvestor(userAddress);
+  const dailyPct = await fetchDailyReturnPct();
+  inv = accrueDailyProfit(inv, dailyPct);
+  saveInvestor(userAddress, inv);
+  userData.capital = inv.capital;
+  userData.profits = inv.profitAccum;
+  userData.neto = inv.capital + inv.profitAccum;
+  userData.joinedAt = inv.joinedAt;
 
-function actualizarCuotaEstimada(){
-  if(bnbPrice>0){
-    const bnbAmt=(selectedUSD*1e8)/bnbPrice;
-    const pool=poolData.totalInvested||0;
-    document.getElementById('estimatedShare').textContent=((bnbAmt/(pool+bnbAmt))*100).toFixed(2)+'%';
+  document.getElementById('netBalance').innerHTML = userData.neto.toFixed(2)+' <span>USD</span>';
+  document.getElementById('capLabel').textContent = userData.capital.toFixed(2);
+  const gananciaTxt = (userData.profits>=0?'+':'')+userData.profits.toFixed(2)+' USD';
+  document.getElementById('netGain').textContent = gananciaTxt;
+  document.getElementById('netGain').className = userData.profits>=0 ? 'positive':'negative';
+  document.getElementById('mCapital').innerHTML = userData.capital.toFixed(2)+' <span style="font-size:12px;color:var(--text3)">USD</span>';
+  document.getElementById('mProfits').innerHTML = (userData.profits>=0?'+':'')+userData.profits.toFixed(2)+' <span style="font-size:12px">USD</span>';
+  document.getElementById('mDailyCap').textContent = (userData.capital*DAILY_CAP_PCT).toFixed(2)+' USD';
+  if(userData.joinedAt>0){
+    const dias = Math.floor((Date.now()-userData.joinedAt)/86400000);
+    document.getElementById('daysIn').textContent = dias;
   }
 }
 
-// ── Wallet ────────────────────────────────────────────────────
+/* ───────── Wallet ───────── */
 async function toggleWallet(){
   if(userAddress){desconectarWallet();return;}
   await conectarWallet();
@@ -441,26 +340,17 @@ async function toggleWallet(){
 async function conectarWallet(){
   if(!window.ethereum){showToast('Instala MetaMask para continuar','error');return;}
   try{
-    provider=new ethers.BrowserProvider(window.ethereum);
+    provider = new ethers.BrowserProvider(window.ethereum);
     await provider.send("eth_requestAccounts",[]);
-    const network=await provider.getNetwork();
-    if(Number(network.chainId)!==BSC_CHAIN_ID){
-      try{
-        await window.ethereum.request({method:'wallet_switchEthereumChain',params:[{chainId:'0x38'}]});
-      }catch(e){
-        await window.ethereum.request({method:'wallet_addEthereumChain',params:[{chainId:'0x38',chainName:'BNB Smart Chain',nativeCurrency:{name:'BNB',symbol:'BNB',decimals:18},rpcUrls:['https://bsc-dataseed1.binance.org/'],blockExplorerUrls:['https://bscscan.com']}]});
-      }
-      provider=new ethers.BrowserProvider(window.ethereum);
-    }
-    signer=await provider.getSigner();
-    userAddress=(await signer.getAddress()).toLowerCase();
-    contract=new ethers.Contract(CONTRACT_ADDRESS,CONTRACT_ABI,signer);
+    const network = await provider.getNetwork();
+    document.getElementById('networkWarn').classList.toggle('show', Number(network.chainId)!==BSC_CHAIN_ID);
+    signer = await provider.getSigner();
+    userAddress = (await signer.getAddress()).toLowerCase();
     document.getElementById('btnConnect').classList.add('connected');
-    document.getElementById('connectText').textContent=userAddress.slice(0,6)+'...'+userAddress.slice(-4);
-    document.getElementById('connectIcon').innerHTML='<span class="wallet-dot"></span>';
+    document.getElementById('connectText').textContent = userAddress.slice(0,6)+'...'+userAddress.slice(-4);
+    document.getElementById('connectIcon').innerHTML = '<span class="wallet-dot"></span>';
     showToast('Wallet conectada','success');
-    await cargarDatos();
-    checkIfOwner();
+    refreshUserUI();
   }catch(e){
     showToast('Error conectando wallet','error');
     console.error(e);
@@ -468,98 +358,28 @@ async function conectarWallet(){
 }
 
 function desconectarWallet(){
-  userAddress=null;signer=null;contract=null;
-  document.getElementById('operatorPanel').classList.remove('visible');
+  userAddress=null; signer=null;
   document.getElementById('btnConnect').classList.remove('connected');
   document.getElementById('connectText').textContent='Conectar Wallet';
-  document.getElementById('connectIcon').textContent='&#11045;';
+  document.getElementById('connectIcon').textContent='\u2B05';
 }
 
-async function cargarDatos(){
-  if(!contract)return;
-  try{
-    const[totalInv,totalProf,contBal,invCount,minBNBRaw,maxBNBRaw,bnbPriceRaw]=await Promise.all([
-      contract.totalInvested(),
-      contract.totalProfitsDeposited(),
-      contract.contractBalance(),
-      contract.activeInvestorCount(),
-      contract.getMinRequiredBNB(),
-      contract.getMaxRequiredBNB(),
-      contract.getBNBPrice()
-    ]);
-    poolData.totalInvested=parseFloat(ethers.formatEther(totalInv));
-    poolData.totalProfits=parseFloat(ethers.formatEther(totalProf));
-    poolData.contractBalance=parseFloat(ethers.formatEther(contBal));
-    poolData.investorCount=Number(invCount);
-    minBNB=parseFloat(ethers.formatEther(minBNBRaw));
-    maxBNB=parseFloat(ethers.formatEther(maxBNBRaw));
-    bnbPrice=Number(bnbPriceRaw);
-    actualizarBNBDisplay();
-    actualizarUIPool();
-    if(userAddress){
-      const[inv,preview]=await Promise.all([
-        contract.getInvestor(userAddress),
-        contract.getWithdrawPreview(userAddress)
-      ]);
-      userData.capital=parseFloat(ethers.formatEther(inv.capital));
-      userData.profits=parseFloat(ethers.formatEther(inv.earnedProfits));
-      userData.neto=parseFloat(ethers.formatEther(preview.recibirasNeto));
-      userData.share=Number(inv.sharePercent)/100;
-      userData.joinedAt=Number(inv.joinedAt);
-      actualizarUIInversor();
-    }
-  }catch(e){
-    console.error('Error leyendo contrato:',e);
-    showToast('Error leyendo contrato','error');
-  }
-}
-
-function actualizarUIPool(){
-  const pct=Math.min((poolData.totalInvested/POOL_CAP_BNB)*100,100);
-  document.getElementById('heroTVL').textContent=poolData.totalInvested.toFixed(4)+' BNB';
-  document.getElementById('heroInvestors').textContent=poolData.investorCount;
-  document.getElementById('sTotalInv').textContent=poolData.totalInvested.toFixed(4)+' BNB';
-  document.getElementById('sInvestors').textContent=poolData.investorCount;
-  document.getElementById('sTotalProf').textContent='+'+poolData.totalProfits.toFixed(4)+' BNB';
-  document.getElementById('sContBal').textContent=poolData.contractBalance.toFixed(4)+' BNB';
-  document.getElementById('sidePoolBal').textContent=poolData.totalInvested.toFixed(4)+' BNB';
-  document.getElementById('poolBarFill').style.width=pct.toFixed(2)+'%';
-  document.getElementById('poolBarText').textContent=poolData.totalInvested.toFixed(2)+' / '+POOL_CAP_BNB+' BNB';
-  actualizarCuotaEstimada();
-}
-
-function actualizarUIInversor(){
-  const ganancia=userData.neto-userData.capital;
-  document.getElementById('netBalance').innerHTML=userData.neto.toFixed(4)+' <span>BNB</span>';
-  document.getElementById('capLabel').textContent=userData.capital.toFixed(4);
-  document.getElementById('netGain').textContent=(ganancia>=0?'+':'')+ganancia.toFixed(4)+' BNB';
-  document.getElementById('netGain').className=ganancia>=0?'positive':'negative';
-  document.getElementById('mCapital').innerHTML=userData.capital.toFixed(4)+' <span style="font-size:12px;color:var(--text3)">BNB</span>';
-  document.getElementById('mProfits').innerHTML='+'+userData.profits.toFixed(4)+' <span style="font-size:12px">BNB</span>';
-  document.getElementById('mShare').textContent=userData.share.toFixed(2)+'%';
-  if(userData.joinedAt>0){
-    const dias=Math.floor((Date.now()/1000-userData.joinedAt)/86400);
-    document.getElementById('daysIn').textContent=dias;
-  }
+function copyAddress(){
+  navigator.clipboard.writeText(DEPOSIT_ADDRESS);
+  showToast('Direccion copiada','success');
 }
 
 function showDeposit(){
   if(!userAddress){showToast('Conecta tu wallet primero','error');return;}
-  if(bnbPrice===0){showToast('Cargando precio BNB...','error');return;}
-  const bnbAmt=(selectedUSD*1e8)/bnbPrice;
-  const pool=poolData.totalInvested||0;
-  document.getElementById('mdepUSD').textContent='$'+selectedUSD+' USD';
-  document.getElementById('mdepAmount').textContent=bnbAmt.toFixed(4)+' BNB';
-  document.getElementById('mdepShare').textContent=((bnbAmt/(pool+bnbAmt))*100).toFixed(2)+'%';
   document.getElementById('depositModal').classList.add('show');
 }
 
 function showWithdraw(){
   if(!userAddress){showToast('Conecta tu wallet primero','error');return;}
-  if(userData.capital===0){showToast('No tienes capital invertido','error');return;}
-  document.getElementById('wCapital').textContent=userData.capital.toFixed(4)+' BNB';
-  document.getElementById('wProfits').textContent='+'+userData.profits.toFixed(4)+' BNB';
-  document.getElementById('wNeto').textContent=userData.neto.toFixed(4)+' BNB';
+  if(userData.capital===0){showToast('No tienes capital registrado','error');return;}
+  document.getElementById('wCapital').textContent = userData.capital.toFixed(2)+' USD';
+  document.getElementById('wProfits').textContent = '+'+userData.profits.toFixed(2)+' USD';
+  document.getElementById('wNeto').textContent = userData.neto.toFixed(2)+' USD';
   document.getElementById('withdrawModal').classList.add('show');
 }
 
@@ -567,40 +387,29 @@ function closeModals(){
   document.querySelectorAll('.modal-overlay').forEach(m=>m.classList.remove('show'));
 }
 
-async function confirmDeposit(){
+function confirmDeposit(){
+  const amount = parseFloat(document.getElementById('depositAmountInput').value)||0;
+  if(amount<=0){showToast('Ingresa el monto enviado','error');return;}
+  let inv = loadInvestor(userAddress);
+  if(inv.joinedAt===0) inv.joinedAt = Date.now();
+  inv.capital += amount;
+  saveInvestor(userAddress, inv);
   closeModals();
-  if(!contract){showToast('Contrato no conectado','error');return;}
-  const weiAmt=getSelectedWei();
-  if(!weiAmt){showToast('Error calculando monto','error');return;}
-  try{
-    showToast('Confirmando en wallet...','info');
-    const tx=await contract.deposit({value:weiAmt});
-    showToast('Transaccion enviada, esperando confirmacion...','info');
-    await tx.wait();
-    showToast('Deposito exitoso!','success');
-    await cargarDatos();
-  }catch(e){
-    if(e.code===4001)showToast('Transaccion cancelada','error');
-    else showToast('Error: '+e.message?.slice(0,60),'error');
-    console.error(e);
-  }
+  showToast('Deposito registrado. Se activara tras confirmar la transaccion on-chain.','success');
+  refreshUserUI();
 }
 
-async function confirmWithdraw(){
+function confirmWithdraw(){
+  // Esto solo marca la solicitud localmente; el envio real de fondos
+  // se procesa manualmente desde la wallet de operacion.
+  let inv = loadInvestor(userAddress);
+  inv.capital = 0;
+  inv.profitAccum = 0;
+  inv.lastAccrualDay = null;
+  saveInvestor(userAddress, inv);
   closeModals();
-  if(!contract){showToast('Contrato no conectado','error');return;}
-  try{
-    showToast('Confirmando retiro en wallet...','info');
-    const tx=await contract.withdraw();
-    showToast('Retiro enviado, esperando confirmacion...','info');
-    await tx.wait();
-    showToast('Retiro exitoso!','success');
-    await cargarDatos();
-  }catch(e){
-    if(e.code===4001)showToast('Transaccion cancelada','error');
-    else showToast('Error en retiro: '+e.message?.slice(0,60),'error');
-    console.error(e);
-  }
+  showToast('Solicitud de retiro enviada. Procesaremos el pago manualmente.','success');
+  refreshUserUI();
 }
 
 function showToast(msg,type='info'){
@@ -620,6 +429,7 @@ function showTab(id,el){
   document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
   document.getElementById('tab-'+id).classList.add('active');
   el.classList.add('active');
+  if(id==='live') pollLiveBackend();
 }
 
 function toggleFaq(el){el.parentElement.classList.toggle('open');}
@@ -628,57 +438,22 @@ document.querySelectorAll('.modal-overlay').forEach(m=>{
   m.addEventListener('click',e=>{if(e.target===m)closeModals();});
 });
 
-function checkIfOwner(){
-  if(!userAddress)return;
-  if(userAddress===OWNER_ADDRESS){
-    document.getElementById('operatorPanel').classList.add('visible');
-    actualizarUIOperador();
-  }else{
-    document.getElementById('operatorPanel').classList.remove('visible');
+/* ───────── Bot en vivo (Railway/FastAPI) ───────── */
+async function pollLiveBackend(){
+  if(!BACKEND_URL){
+    document.getElementById('liveStatus').textContent='Backend no configurado';
+    return;
   }
-}
-
-function actualizarUIOperador(){
-  document.getElementById('opContractBal').textContent=poolData.contractBalance.toFixed(4)+' BNB';
-  document.getElementById('opTotalInv').textContent=poolData.totalInvested.toFixed(4)+' BNB';
-  document.getElementById('opTotalProf').textContent=poolData.totalProfits.toFixed(4)+' BNB';
-  document.getElementById('opInvestors').textContent=poolData.investorCount;
-}
-
-async function depositProfits(){
-  if(!contract){showToast('Contrato no conectado','error');return;}
-  const val=parseFloat(document.getElementById('profitAmount').value)||0;
-  if(val<=0){showToast('Ingresa un monto valido','error');return;}
-  const btn=document.getElementById('btnDepositProfits');
-  btn.disabled=true;
   try{
-    showToast('Confirmando en wallet...','info');
-    const tx=await contract.depositProfits({value:ethers.parseEther(val.toString())});
-    showToast('Transaccion enviada...','info');
-    await tx.wait();
-    showToast('Profits depositados y distribuidos','success');
-    document.getElementById('profitAmount').value='';
-    await cargarDatos();
-    actualizarUIOperador();
+    const res = await fetch(BACKEND_URL.replace(/\/$/,'')+'/api/crash1000/status');
+    const data = await res.json();
+    document.getElementById('liveStatus').textContent = data.online ? 'En linea' : 'Sin conexion';
+    document.getElementById('liveBalance').textContent = (data.balance!==undefined? data.balance.toFixed(2)+' USD':'--');
+    document.getElementById('liveWins').textContent = data.wins ?? '--';
+    document.getElementById('liveLosses').textContent = data.losses ?? '--';
+    document.getElementById('liveUpdated').textContent = new Date().toLocaleTimeString();
   }catch(e){
-    if(e.code===4001)showToast('Transaccion cancelada','error');
-    else showToast('Error: '+e.message?.slice(0,60),'error');
-    console.error(e);
-  }finally{btn.disabled=false;}
-}
-
-async function withdrawFees(){
-  if(!contract){showToast('Contrato no conectado','error');return;}
-  try{
-    showToast('Confirmando retiro de fees...','info');
-    const tx=await contract.withdrawTeamFees();
-    await tx.wait();
-    showToast('Fees retirados','success');
-    await cargarDatos();
-    actualizarUIOperador();
-  }catch(e){
-    if(e.code===4001)showToast('Transaccion cancelada','error');
-    else showToast('Error: '+e.message?.slice(0,60),'error');
+    document.getElementById('liveStatus').textContent='Error de conexion';
     console.error(e);
   }
 }
@@ -687,10 +462,11 @@ window.addEventListener('load',()=>{
   if(window.ethereum){
     window.ethereum.on('accountsChanged',accounts=>{
       if(accounts.length===0)desconectarWallet();
-      else{userAddress=accounts[0].toLowerCase();cargarDatos();checkIfOwner();}
+      else{userAddress=accounts[0].toLowerCase();refreshUserUI();}
     });
     window.ethereum.on('chainChanged',()=>window.location.reload());
   }
+  setInterval(()=>{ if(document.getElementById('tab-live').classList.contains('active')) pollLiveBackend(); },4000);
 });
 </script>
 </body>
