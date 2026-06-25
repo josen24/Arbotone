@@ -446,7 +446,7 @@ async function pollLiveBackend(){
     return;
   }
   try{
-            const res = await fetch("https://railway.app");
+            const res = await fetch(BACKEND_URL.replace(/\/$/,'') + '/api/crash1000/status');
 
     const data = await res.json();
     document.getElementById('liveStatus').textContent = data.online ? 'En linea' : 'Sin conexion';
