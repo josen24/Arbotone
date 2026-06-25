@@ -206,7 +206,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 4
       <div class="network-warn" id="networkWarn">Conecta tu wallet a BSC Mainnet para depositar de forma segura.</div>
       <div style="text-align:center;padding:8px 0 4px">
         <div style="font-size:13px;color:var(--text3);margin-bottom:4px">Monto sugerido de deposito</div>
-        <div style="font-size:32px;font-weight:600;font-family:var(--fm);color:var(--mint)">$10 USD</div>
+        <div style="font-size:32px;font-weight:600;font-family:var(--fm);color:var(--mint)">$100 USD</div>
       </div>
       <div class="deposit-address-box">
         <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.4px">Enviar BNB/BEP-20 a esta direccion</div>
@@ -261,7 +261,8 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 4
 const DEPOSIT_ADDRESS = "0xb1F9217BB122F9A35995a73c5C9274Bc80BeD7D4"; // wallet personal de operacion (BSC)
 const BSC_CHAIN_ID    = 56;
 const DAILY_CAP_PCT   = 0.02; // 2% acumulado por dia, proporcional al rendimiento real
-const BACKEND_URL     = "https://web-production-33de36.up.railway.app"; // TODO: pegar aqui la URL del backend FastAPI en Railway, ej: https://web-production-33de36.up.railway.app
+const BACKEND_URL     = "https://railway.app";
+
 
 let provider, signer, userAddress;
 
