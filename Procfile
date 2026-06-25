@@ -1,1 +1,1 @@
-worker: python bot_arbitrage_v9.py
+web: uvicorn main:app --host 0.0.0.0 --port $PORT
