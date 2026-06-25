@@ -1,4 +1,4 @@
-python-binance
-websockets
-web3
-numpy
+fastapi
+uvicorn
+requests
+python-dotenv
