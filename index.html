@@ -119,7 +119,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 4
 
 <div style="background:linear-gradient(90deg,rgba(26,110,255,.1),rgba(26,110,255,.04));border-bottom:1px solid rgba(26,110,255,.2);padding:11px 40px;display:flex;align-items:center;gap:10px;font-size:13px;color:var(--blue2)">
   <span style="font-size:16px">&#9888;&#65039;</span>
-  <span><strong style="color:var(--text)">Fase de pruebas &mdash; tope temporal de $10 USD por inversor.</strong> Este limite subira progresivamente conforme el bot demuestre consistencia con mayor capital.</span>
+  <span><strong style="color:var(--text)">Fase superada &mdash; tope m´nimo sugerido de $100 USD por inversor.</strong> Este limite subira progresivamente conforme el bot demuestre consistencia con mayor capital.</span>
 </div>
 
 <div class="hero">
@@ -194,7 +194,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 4
         </div>
         <div class="faq-item">
           <div class="faq-q" onclick="toggleFaq(this)">Cual es el minimo para invertir?<span class="faq-icon">+</span></div>
-          <div class="faq-a">El deposito inicial sugerido es de $10 USD equivalentes en BNB.</div>
+          <div class="faq-a">El deposito inicial sugerido es de $100 USD equivalentes en BNB.</div>
         </div>
       </div>
     </div>
@@ -261,8 +261,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 4
 const DEPOSIT_ADDRESS = "0xb1F9217BB122F9A35995a73c5C9274Bc80BeD7D4"; // wallet personal de operacion (BSC)
 const BSC_CHAIN_ID    = 56;
 const DAILY_CAP_PCT   = 0.02; // 2% acumulado por dia, proporcional al rendimiento real
-const BACKEND_URL = "https://arbotone.up.railway.app";
-
+const BACKEND_URL     = "arbotone.up.railway.app"; // TODO: pegar aqui la URL del backend FastAPI en Railway, ej: https://web-production-33de36.up.railway.app
 
 let provider, signer, userAddress;
 
@@ -446,8 +445,7 @@ async function pollLiveBackend(){
     return;
   }
   try{
-            const res = await fetch(BACKEND_URL.replace(/\/$/,'') + '/api/crash1000/status');
-
+    const res = await fetch(BACKEND_URL.replace(/\/$/,'')+'/api/crash1000/status');
     const data = await res.json();
     document.getElementById('liveStatus').textContent = data.online ? 'En linea' : 'Sin conexion';
     document.getElementById('liveBalance').textContent = (data.balance!==undefined? data.balance.toFixed(2)+' USD':'--');
