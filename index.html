@@ -173,11 +173,11 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 4
         <div class="stat-row"><span class="stat-row-label">Operaciones ganadas</span><span class="stat-row-val mint" id="liveWins">--</span></div>
         <div class="stat-row"><span class="stat-row-label">Operaciones perdidas</span><span class="stat-row-val" id="liveLosses">--</span></div>
         <div class="stat-row"><span class="stat-row-label">Ultima actualizacion</span><span class="stat-row-val" id="liveUpdated">--</span></div>
-        <div class="notice"><strong>Nota:</strong> El trading es un negocio de alto riezgo. No inviertas dinero que no puedas permitirte perder <span style="font-family:var(--fm)"></span></div>
+        <div class="notice"><strong>Nota:</strong> El trading es un negocio de alto riezgo. No inviertas dinero que no puedas permitirte perder</div>
       </div>
     </div>
 
-    <div class="panel" id="tab-faq" id="faq">
+    <div class="panel" id="tab-faq">
       <div class="card">
         <div class="card-title">Como funciona</div>
         <div class="faq-item">
@@ -265,57 +265,30 @@ const BACKEND_URL     = "https://arbotone.up.railway.app"; // URL del backend Fa
 
 let provider, signer, userAddress;
 
-/* ───────── Estado del inversor (sintetico, localStorage por wallet) ─────────
-   NOTA: esto es almacenamiento local en el navegador, sirve como placeholder
-   visual mientras se conecta a un backend real que persista esto por usuario.
-   Lo ideal es mover este estado a tu backend (Railway/FastAPI) cuanto antes,
-   para que no dependa del navegador del inversor. */
-function loadInvestor(addr){
-  const raw = localStorage.getItem('ap_investor_'+addr);
-  if(raw) return JSON.parse(raw);
-  return {capital:0, profitAccum:0, joinedAt:0, lastAccrualDay:null};
-}
-function saveInvestor(addr, data){
-  localStorage.setItem('ap_investor_'+addr, JSON.stringify(data));
-}
-
-function accrueDailyProfit(inv, dailyReturnPct){
-  // dailyReturnPct viene del backend: el % real que tuvo el bot ese dia,
-  // con tope de +2% si gano mas, pero SIN tope si perdio (puede ser negativo).
-  if(inv.capital<=0) return inv;
-  const today = new Date().toISOString().slice(0,10);
-  if(inv.lastAccrualDay !== today){
-    const pct = (typeof dailyReturnPct === 'number') ? dailyReturnPct : 0;
-    inv.profitAccum += inv.capital * (pct/100);
-    inv.lastAccrualDay = today;
-  }
-  return inv;
+/* ───────── Estado del inversor (persistido en el backend, ya no localStorage) ───────── */
+async function accrueInvestor(addr){
+  // Le pide al backend que aplique el rendimiento diario del bot a este inversor
+  // y devuelve el estado actualizado (capital, ganancias, fecha de ingreso, etc).
+  const res = await fetch(BACKEND_URL.replace(/\/$/,'')+'/api/investors/'+addr+'/accrue', {method:'POST'});
+  if(!res.ok) throw new Error('No se pudo aplicar el rendimiento diario');
+  return await res.json();
 }
 
 let userData = {capital:0, profits:0, neto:0, joinedAt:0};
 
-async function fetchDailyReturnPct(){
-  if(!BACKEND_URL) return 0;
-  try{
-    const res = await fetch(BACKEND_URL.replace(/\/$/,'')+'/api/crash1000/status');
-    const data = await res.json();
-    return data.daily_return_pct_investor ?? 0;
-  }catch(e){
-    console.error('No se pudo leer rendimiento real del bot:', e);
-    return 0;
-  }
-}
-
 async function refreshUserUI(){
   if(!userAddress) return;
-  let inv = loadInvestor(userAddress);
-  const dailyPct = await fetchDailyReturnPct();
-  inv = accrueDailyProfit(inv, dailyPct);
-  saveInvestor(userAddress, inv);
-  userData.capital = inv.capital;
-  userData.profits = inv.profitAccum;
-  userData.neto = inv.capital + inv.profitAccum;
-  userData.joinedAt = inv.joinedAt;
+  try{
+    const inv = await accrueInvestor(userAddress);
+    userData.capital = inv.capital;
+    userData.profits = inv.profit_accum;
+    userData.neto = inv.capital + inv.profit_accum;
+    userData.joinedAt = inv.joined_at ? new Date(inv.joined_at).getTime() : 0;
+  }catch(e){
+    console.error('Error leyendo estado del inversor desde el backend:', e);
+    showToast('No se pudo conectar con el backend','error');
+    return;
+  }
 
   document.getElementById('netBalance').innerHTML = userData.neto.toFixed(2)+' <span>USD</span>';
   document.getElementById('capLabel').textContent = userData.capital.toFixed(2);
@@ -387,29 +360,38 @@ function closeModals(){
   document.querySelectorAll('.modal-overlay').forEach(m=>m.classList.remove('show'));
 }
 
-function confirmDeposit(){
+async function confirmDeposit(){
   const amount = parseFloat(document.getElementById('depositAmountInput').value)||0;
   if(amount<=0){showToast('Ingresa el monto enviado','error');return;}
-  let inv = loadInvestor(userAddress);
-  if(inv.joinedAt===0) inv.joinedAt = Date.now();
-  inv.capital += amount;
-  saveInvestor(userAddress, inv);
-  closeModals();
-  showToast('Deposito registrado. Se activara tras confirmar la transaccion on-chain.','success');
-  refreshUserUI();
+  try{
+    const res = await fetch(BACKEND_URL.replace(/\/$/,'')+'/api/investors/'+userAddress+'/deposit', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({amount: amount})
+    });
+    if(!res.ok) throw new Error('Backend rechazo el deposito');
+    closeModals();
+    showToast('Deposito registrado. Se activara tras confirmar la transaccion on-chain.','success');
+    refreshUserUI();
+  }catch(e){
+    console.error(e);
+    showToast('No se pudo registrar el deposito, intenta de nuevo','error');
+  }
 }
 
-function confirmWithdraw(){
-  // Esto solo marca la solicitud localmente; el envio real de fondos
+async function confirmWithdraw(){
+  // Marca la solicitud en el backend; el envio real de fondos
   // se procesa manualmente desde la wallet de operacion.
-  let inv = loadInvestor(userAddress);
-  inv.capital = 0;
-  inv.profitAccum = 0;
-  inv.lastAccrualDay = null;
-  saveInvestor(userAddress, inv);
-  closeModals();
-  showToast('Solicitud de retiro enviada. Procesaremos el pago manualmente.','success');
-  refreshUserUI();
+  try{
+    const res = await fetch(BACKEND_URL.replace(/\/$/,'')+'/api/investors/'+userAddress+'/withdraw', {method:'POST'});
+    if(!res.ok) throw new Error('Backend rechazo el retiro');
+    closeModals();
+    showToast('Solicitud de retiro enviada. Procesaremos el pago manualmente.','success');
+    refreshUserUI();
+  }catch(e){
+    console.error(e);
+    showToast('No se pudo enviar la solicitud, intenta de nuevo','error');
+  }
 }
 
 function showToast(msg,type='info'){
