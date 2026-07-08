@@ -85,6 +85,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 4
 .btn-cancel{flex:1;background:transparent;border:1px solid var(--border);color:var(--text2);padding:12px;border-radius:var(--radius-sm);font-family:var(--ff);font-size:14px;cursor:pointer;transition:all .2s}
 .btn-confirm{flex:2;background:var(--mint);color:var(--navy);border:none;padding:12px;border-radius:var(--radius-sm);font-family:var(--ff);font-size:14px;font-weight:600;cursor:pointer;transition:all .2s}
 .btn-confirm:hover{background:var(--mint2)}
+.btn-confirm:disabled{opacity:.5;cursor:not-allowed}
 .notice{background:rgba(26,110,255,.08);border:1px solid rgba(26,110,255,.2);border-radius:var(--radius-sm);padding:12px 16px;font-size:12px;color:var(--blue2);margin-top:16px;line-height:1.6}
 .notice strong{color:var(--text)}
 .tabs{display:flex;gap:4px;background:var(--card2);border:1px solid var(--border);border-radius:12px;padding:4px;margin-bottom:24px}
@@ -101,6 +102,20 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 4
 .network-warn{background:rgba(255,107,107,.1);border:1px solid rgba(255,107,107,.3);color:#FF6B6B;border-radius:var(--radius-sm);padding:10px 14px;font-size:12px;margin-bottom:14px;display:none}
 .network-warn.show{display:block}
 .live-dot{width:7px;height:7px;border-radius:50%;background:var(--mint);display:inline-block;animation:pulse 1.4s infinite;margin-right:6px}
+.input-field{width:100%;background:var(--card2);border:1px solid var(--border);color:var(--text);font-family:var(--fm);font-size:13px;padding:10px 12px;border-radius:8px;margin-top:6px}
+.input-field:focus{outline:none;border-color:var(--blue)}
+.field-label{font-size:12px;color:var(--text3);margin-top:14px;display:block}
+.field-hint{font-size:11px;color:var(--text3);margin-top:4px;line-height:1.5}
+.history-list{max-height:220px;overflow-y:auto}
+.history-item{padding:12px 0;border-bottom:1px solid var(--border);font-size:12px}
+.history-item:last-child{border-bottom:none}
+.history-row{display:flex;justify-content:space-between;align-items:center}
+.status-pill{font-size:10px;padding:2px 9px;border-radius:10px;font-weight:600;text-transform:uppercase;letter-spacing:.3px}
+.status-pill.pending{background:rgba(245,166,35,.15);color:var(--gold)}
+.status-pill.completed{background:rgba(0,201,167,.15);color:var(--mint)}
+.tx-link{color:var(--blue2);text-decoration:none;font-family:var(--fm);font-size:11px}
+.tx-link:hover{text-decoration:underline}
+.empty-hint{color:var(--text3);font-size:12px;padding:12px 0;text-align:center}
 </style>
 </head>
 <body>
@@ -166,6 +181,20 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 4
           <strong>Como funciona ahora?</strong> Los depositos se envian directamente a la wallet de operacion (ya no via smart contract). Tu balance se mueve cada dia segun el rendimiento REAL del bot: si el bot gana, tu ganas (maximo +2% mostrado por dia); si el bot pierde, tu balance tambien baja proporcionalmente. No se reinicia hasta que solicites un retiro.
         </div>
       </div>
+
+      <div class="card">
+        <div class="card-title">Mis retiros</div>
+        <div class="history-list" id="withdrawHistory">
+          <div class="empty-hint">Conecta tu wallet para ver tu historial</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Mis depositos</div>
+        <div class="history-list" id="depositHistory">
+          <div class="empty-hint">Conecta tu wallet para ver tu historial</div>
+        </div>
+      </div>
     </div>
 
     <div class="panel" id="tab-live">
@@ -185,7 +214,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 4
         <div class="card-title">Como funciona</div>
         <div class="faq-item">
           <div class="faq-q" onclick="toggleFaq(this)">Como deposito ahora?<span class="faq-icon">+</span></div>
-          <div class="faq-a">Envias el monto directamente a la wallet de operacion en BSC que se muestra en el panel de deposito. Una vez confirmada la transaccion, tu capital se activa en el dashboard.</div>
+          <div class="faq-a">Envias USDT (BEP-20) directamente a la wallet de operacion en BSC que se muestra en el panel de deposito. Luego registras el hash de esa transaccion (tx hash) en el formulario. El sistema verifica automaticamente en la blockchain que la transaccion sea real antes de activar tu capital — puede tardar uno o dos minutos mientras se confirma.</div>
         </div>
         <div class="faq-item">
           <div class="faq-q" onclick="toggleFaq(this)">Como se calculan mis ganancias?<span class="faq-icon">+</span></div>
@@ -193,11 +222,11 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 4
         </div>
         <div class="faq-item">
           <div class="faq-q" onclick="toggleFaq(this)">Como retiro?<span class="faq-icon">+</span></div>
-          <div class="faq-a">Solicitas el retiro desde el dashboard y se procesa manualmente desde la wallet de operacion a tu wallet.</div>
+          <div class="faq-a">Solicitas el retiro desde el dashboard. Tu solicitud queda con estado "Pendiente" hasta que se procese manualmente el pago desde la wallet de operacion. Cuando el pago se realiza, tu solicitud pasa a estado "Completado" y podras ver el hash de esa transaccion como comprobante en la seccion "Mis retiros".</div>
         </div>
         <div class="faq-item">
           <div class="faq-q" onclick="toggleFaq(this)">Cual es el minimo para invertir?<span class="faq-icon">+</span></div>
-          <div class="faq-a">El deposito inicial sugerido es de $100 USD equivalentes en BNB.</div>
+          <div class="faq-a">El deposito inicial sugerido es de $100 USD en USDT (BEP-20). No se aceptan otros tokens ni BNB nativo por el momento.</div>
         </div>
       </div>
     </div>
@@ -212,12 +241,12 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 4
         <div style="font-size:32px;font-weight:600;font-family:var(--fm);color:var(--mint)">$100 USD</div>
       </div>
       <div class="deposit-address-box">
-        <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.4px">Enviar BNB/BEP-20 a esta direccion</div>
+        <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:.4px">Enviar solo USDT (BEP-20) a esta direccion</div>
         <div class="deposit-address-val" id="depositAddress">0xb1F9217BB122F9A35995a73c5C9274Bc80BeD7D4</div>
         <button class="btn-copy" onclick="copyAddress()">Copiar direccion</button>
       </div>
       <div class="notice">
-        <strong>Importante:</strong> envia solo en la red BSC (BEP-20). Tras enviar, registra tu deposito para que se active en tu dashboard.
+        <strong>Importante:</strong> envia unicamente USDT en la red BSC (BEP-20). No envies BNB ni ningun otro token — no sera reconocido automaticamente. Tras enviar, registra tu deposito con el hash de la transaccion para que se active en tu dashboard.
       </div>
       <button class="btn-primary" style="width:100%;margin-top:16px" onclick="showDeposit()">Ya envie, registrar deposito</button>
     </div>
@@ -228,15 +257,18 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 4
 <div class="modal-overlay" id="depositModal">
   <div class="modal">
     <div class="modal-title">Registrar deposito</div>
-    <div class="modal-sub">Confirma que ya enviaste los fondos a la direccion de operacion en BSC.</div>
+    <div class="modal-sub">Confirma que ya enviaste USDT (BEP-20) a la direccion de operacion en BSC.</div>
     <div class="preview-box">
       <div class="preview-row"><span class="label">Direccion destino</span><span class="val" style="font-size:11px">0xb1F9...D7D4</span></div>
-      <div class="preview-row"><span class="label">Red</span><span class="val">BSC (BEP-20)</span></div>
-      <div class="preview-row total"><span class="label" style="font-weight:500;color:var(--text)">Monto enviado (USD)</span><span class="val"><input type="number" id="depositAmountInput" placeholder="10" style="width:90px;background:var(--card2);border:1px solid var(--border);color:var(--mint);font-family:var(--fm);font-size:16px;padding:6px 8px;border-radius:6px;text-align:right"></span></div>
+      <div class="preview-row"><span class="label">Red</span><span class="val">BSC (BEP-20) — solo USDT</span></div>
+      <div class="preview-row total"><span class="label" style="font-weight:500;color:var(--text)">Monto enviado (USD)</span><span class="val"><input type="number" id="depositAmountInput" placeholder="100" style="width:90px;background:var(--card2);border:1px solid var(--border);color:var(--mint);font-family:var(--fm);font-size:16px;padding:6px 8px;border-radius:6px;text-align:right"></span></div>
+      <label class="field-label">Hash de la transaccion (tx hash)</label>
+      <input type="text" id="depositTxHashInput" class="input-field" placeholder="0x...">
+      <div class="field-hint">Lo encontras en tu wallet (MetaMask/Trust Wallet) o en BscScan, justo despues de enviar. Es obligatorio: sin el hash correcto, el sistema no puede verificar tu deposito ni activar tu capital.</div>
     </div>
     <div class="modal-actions">
       <button class="btn-cancel" onclick="closeModals()">Cancelar</button>
-      <button class="btn-confirm" onclick="confirmDeposit()">Confirmar deposito</button>
+      <button class="btn-confirm" id="btnConfirmDeposit" onclick="confirmDeposit()">Confirmar deposito</button>
     </div>
   </div>
 </div>
@@ -245,7 +277,7 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 4
 <div class="modal-overlay" id="withdrawModal">
   <div class="modal">
     <div class="modal-title">Solicitar retiro</div>
-    <div class="modal-sub">Tu solicitud se procesa manualmente desde la wallet de operacion.</div>
+    <div class="modal-sub">Tu solicitud queda registrada como <strong style="color:var(--gold)">Pendiente</strong> hasta que se procese manualmente el pago desde la wallet de operacion. Vas a poder ver el estado y el comprobante en "Mis retiros".</div>
     <div class="preview-box">
       <div class="preview-row"><span class="label">Capital invertido</span><span class="val" id="wCapital">-- USD</span></div>
       <div class="preview-row"><span class="label">Ganancias acumuladas</span><span class="val" id="wProfits" style="color:var(--mint)">+-- USD</span></div>
@@ -265,13 +297,15 @@ const DEPOSIT_ADDRESS = "0xb1F9217BB122F9A35995a73c5C9274Bc80BeD7D4"; // wallet 
 const BSC_CHAIN_ID    = 56;
 const DAILY_CAP_PCT   = 0.02; // 2% acumulado por dia, proporcional al rendimiento real
 const BACKEND_URL     = "https://arbotone.up.railway.app"; // URL del backend FastAPI en Railway
+const BSCSCAN_TX_URL  = "https://bscscan.com/tx/";
 
 let provider, signer, userAddress;
+let fullInvestorData = null; // guarda la respuesta completa del backend (incluye deposits y withdraw_requests)
 
 /* ───────── Estado del inversor (persistido en el backend, ya no localStorage) ───────── */
 async function accrueInvestor(addr){
   // Le pide al backend que aplique el rendimiento diario del bot a este inversor
-  // y devuelve el estado actualizado (capital, ganancias, fecha de ingreso, etc).
+  // y devuelve el estado actualizado completo (capital, ganancias, depositos, retiros, etc).
   const res = await fetch(BACKEND_URL.replace(/\/$/,'')+'/api/investors/'+addr+'/accrue', {method:'POST'});
   if(!res.ok) throw new Error('No se pudo aplicar el rendimiento diario');
   return await res.json();
@@ -283,6 +317,7 @@ async function refreshUserUI(){
   if(!userAddress) return;
   try{
     const inv = await accrueInvestor(userAddress);
+    fullInvestorData = inv;
     userData.capital = inv.capital;
     userData.profits = inv.profit_accum;
     userData.neto = inv.capital + inv.profit_accum;
@@ -305,6 +340,53 @@ async function refreshUserUI(){
     const dias = Math.floor((Date.now()-userData.joinedAt)/86400000);
     document.getElementById('daysIn').textContent = dias;
   }
+
+  renderWithdrawHistory();
+  renderDepositHistory();
+}
+
+function renderWithdrawHistory(){
+  const el = document.getElementById('withdrawHistory');
+  const lista = (fullInvestorData && fullInvestorData.withdraw_requests) || [];
+  if(lista.length===0){
+    el.innerHTML = '<div class="empty-hint">Todavia no solicitaste ningun retiro</div>';
+    return;
+  }
+  el.innerHTML = lista.slice().reverse().map(w=>{
+    const fecha = w.ts ? new Date(w.ts).toLocaleString() : '--';
+    const esCompleto = w.status === 'completed';
+    const pillClass = esCompleto ? 'completed' : 'pending';
+    const pillTexto = esCompleto ? 'Completado' : 'Pendiente';
+    let comprobante = '';
+    if(esCompleto && w.payout_tx_hash){
+      comprobante = '<div style="margin-top:6px"><a class="tx-link" href="'+BSCSCAN_TX_URL+w.payout_tx_hash+'" target="_blank" rel="noopener">Ver transaccion de pago &#8599;</a></div>';
+    } else if(!esCompleto){
+      comprobante = '<div style="margin-top:6px;color:var(--text3);font-size:11px">Se esta procesando manualmente. Te avisaremos cuando se complete.</div>';
+    }
+    return '<div class="history-item">'+
+      '<div class="history-row"><span>'+fecha+'</span><span class="status-pill '+pillClass+'">'+pillTexto+'</span></div>'+
+      '<div class="history-row" style="margin-top:4px"><span style="color:var(--text2)">Monto</span><span style="font-family:var(--fm)">'+w.amount.toFixed(2)+' USD</span></div>'+
+      comprobante+
+    '</div>';
+  }).join('');
+}
+
+function renderDepositHistory(){
+  const el = document.getElementById('depositHistory');
+  const lista = (fullInvestorData && fullInvestorData.deposits) || [];
+  if(lista.length===0){
+    el.innerHTML = '<div class="empty-hint">Todavia no registraste ningun deposito</div>';
+    return;
+  }
+  el.innerHTML = lista.slice().reverse().map(d=>{
+    const fecha = d.ts ? new Date(d.ts).toLocaleString() : '--';
+    const txCorto = d.tx_hash ? (d.tx_hash.slice(0,10)+'...'+d.tx_hash.slice(-6)) : '--';
+    const linkTx = d.tx_hash ? ('<a class="tx-link" href="'+BSCSCAN_TX_URL+d.tx_hash+'" target="_blank" rel="noopener">'+txCorto+' &#8599;</a>') : '<span style="color:var(--text3)">Sin hash</span>';
+    return '<div class="history-item">'+
+      '<div class="history-row"><span>'+fecha+'</span><span style="font-family:var(--fm);color:var(--mint)">'+d.amount.toFixed(2)+' USD</span></div>'+
+      '<div style="margin-top:4px">'+linkTx+'</div>'+
+    '</div>';
+  }).join('');
 }
 
 /* ───────── Wallet ───────── */
@@ -334,10 +416,12 @@ async function conectarWallet(){
 }
 
 function desconectarWallet(){
-  userAddress=null; signer=null;
+  userAddress=null; signer=null; fullInvestorData=null;
   document.getElementById('btnConnect').classList.remove('connected');
   document.getElementById('connectText').textContent='Conectar Wallet';
   document.getElementById('connectIcon').textContent='\u2B05';
+  document.getElementById('withdrawHistory').innerHTML = '<div class="empty-hint">Conecta tu wallet para ver tu historial</div>';
+  document.getElementById('depositHistory').innerHTML = '<div class="empty-hint">Conecta tu wallet para ver tu historial</div>';
 }
 
 function copyAddress(){
@@ -347,6 +431,8 @@ function copyAddress(){
 
 function showDeposit(){
   if(!userAddress){showToast('Conecta tu wallet primero','error');return;}
+  document.getElementById('depositTxHashInput').value = '';
+  document.getElementById('depositAmountInput').value = '';
   document.getElementById('depositModal').classList.add('show');
 }
 
@@ -363,22 +449,51 @@ function closeModals(){
   document.querySelectorAll('.modal-overlay').forEach(m=>m.classList.remove('show'));
 }
 
+/* Extrae un mensaje de error legible desde la respuesta del backend (FastAPI manda {"detail": "..."}) */
+async function extraerMensajeError(res, fallback){
+  try{
+    const data = await res.json();
+    if(data && data.detail) return data.detail;
+  }catch(e){}
+  return fallback;
+}
+
 async function confirmDeposit(){
   const amount = parseFloat(document.getElementById('depositAmountInput').value)||0;
+  const txHash = document.getElementById('depositTxHashInput').value.trim();
+
   if(amount<=0){showToast('Ingresa el monto enviado','error');return;}
+  if(!txHash || !txHash.startsWith('0x') || txHash.length!==66){
+    showToast('Ingresa un hash de transaccion valido (empieza con 0x, 66 caracteres)','error');
+    return;
+  }
+
+  const btn = document.getElementById('btnConfirmDeposit');
+  btn.disabled = true;
+  btn.textContent = 'Verificando en la blockchain...';
+
   try{
     const res = await fetch(BACKEND_URL.replace(/\/$/,'')+'/api/investors/'+userAddress+'/deposit', {
       method:'POST',
       headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({amount: amount})
+      body: JSON.stringify({amount: amount, tx_hash: txHash})
     });
-    if(!res.ok) throw new Error('Backend rechazo el deposito');
+
+    if(!res.ok){
+      const msg = await extraerMensajeError(res, 'El backend rechazo el deposito');
+      showToast(msg, 'error');
+      return;
+    }
+
     closeModals();
-    showToast('Deposito registrado. Se activara tras confirmar la transaccion on-chain.','success');
+    showToast('Deposito verificado y acreditado correctamente','success');
     refreshUserUI();
   }catch(e){
     console.error(e);
     showToast('No se pudo registrar el deposito, intenta de nuevo','error');
+  }finally{
+    btn.disabled = false;
+    btn.textContent = 'Confirmar deposito';
   }
 }
 
@@ -387,9 +502,13 @@ async function confirmWithdraw(){
   // se procesa manualmente desde la wallet de operacion.
   try{
     const res = await fetch(BACKEND_URL.replace(/\/$/,'')+'/api/investors/'+userAddress+'/withdraw', {method:'POST'});
-    if(!res.ok) throw new Error('Backend rechazo el retiro');
+    if(!res.ok){
+      const msg = await extraerMensajeError(res, 'El backend rechazo el retiro');
+      showToast(msg, 'error');
+      return;
+    }
     closeModals();
-    showToast('Solicitud de retiro enviada. Procesaremos el pago manualmente.','success');
+    showToast('Solicitud registrada como Pendiente. Mira el estado en "Mis retiros".','success');
     refreshUserUI();
   }catch(e){
     console.error(e);
@@ -403,7 +522,7 @@ function showToast(msg,type='info'){
   const colors={success:'var(--mint)',error:'#FF6B6B',info:'var(--blue2)'};
   const t=document.createElement('div');
   t.id='toast';
-  t.style.cssText=`position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:var(--card);border:1px solid ${colors[type]};color:var(--text);padding:12px 24px;border-radius:12px;font-size:14px;z-index:999;box-shadow:0 4px 20px rgba(0,0,0,.4);white-space:nowrap;max-width:90vw;overflow:hidden;text-overflow:ellipsis`;
+  t.style.cssText='position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:var(--card);border:1px solid '+colors[type]+';color:var(--text);padding:12px 24px;border-radius:12px;font-size:14px;z-index:999;box-shadow:0 4px 20px rgba(0,0,0,.4);white-space:nowrap;max-width:90vw;overflow:hidden;text-overflow:ellipsis';
   t.textContent=msg;
   document.body.appendChild(t);
   setTimeout(()=>t.remove(),3500);
