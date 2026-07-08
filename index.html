@@ -27,6 +27,9 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 4
 .wallet-dot{width:7px;height:7px;border-radius:50%;background:var(--mint);animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 .hero{padding:64px 40px 48px;max-width:1200px;margin:0 auto}
+.hero-grid{display:grid;grid-template-columns:1fr 360px;gap:40px;align-items:start}
+.hero-live-widget{position:sticky;top:90px}
+@media (max-width:860px){.hero-grid{grid-template-columns:1fr}.hero-live-widget{position:static}}
 .hero-tag{display:inline-flex;align-items:center;gap:7px;background:rgba(26,110,255,.12);border:1px solid rgba(26,110,255,.25);color:var(--blue2);font-size:12px;font-weight:500;padding:5px 12px;border-radius:20px;margin-bottom:20px;letter-spacing:.3px;text-transform:uppercase}
 .hero h1{font-size:42px;font-weight:300;letter-spacing:-1.2px;line-height:1.15;margin-bottom:12px}
 .hero h1 strong{font-weight:600;color:var(--text)}
@@ -147,17 +150,28 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 4
 </div>
 
 
-<div class="hero">
-  <div class="hero-tag">Indices Sinteticos</div>
-  <h1>Tu dinero trabaja.<br><strong>Tu cobras los frutos.</strong></h1>
-  <p>Bot de trading 100% automatizado. Depositas, el bot opera, tu rendimiento se acumula en tiempo real 
-    proporcional al desempeño real del bot. Programado para obtener un profit de entre 5% y 2% Con un DD Maximo de 2%. Alcanzado este limite,
-    el bot para, asegurando las ganancias o protegiendo el capital. Luego cuando pasa la tormenta, al dia siguiente,
-    se reinicia y vuelve a operar</p>
-  <div class="hero-stats">
-    <div class="hstat"><div class="hstat-val" id="heroTVL">--</div><div class="hstat-label">Total invertido</div></div>
-    <div class="hstat"><div class="hstat-val" id="heroInvestors">--</div><div class="hstat-label">Inversores activos</div></div>
-    <div class="hstat"><div class="hstat-val" id="heroProfit">--</div><div class="hstat-label">Rendimiento hoy</div></div>
+<div class="hero hero-grid">
+  <div>
+    <div class="hero-tag">Indices Sinteticos</div>
+    <h1>Tu dinero trabaja.<br><strong>Tu cobras los frutos.</strong></h1>
+    <p>Bot de trading 100% automatizado. Depositas, el bot opera, tu rendimiento se acumula en tiempo real 
+      proporcional al desempeño real del bot. Programado para obtener un profit de entre 5% y 2% Con un DD Maximo de 2%. Alcanzado este limite,
+      el bot para, asegurando las ganancias o protegiendo el capital. Luego cuando pasa la tormenta, al dia siguiente,
+      se reinicia y vuelve a operar</p>
+    <div class="hero-stats">
+      <div class="hstat"><div class="hstat-val" id="heroTVL">--</div><div class="hstat-label">Total invertido</div></div>
+      <div class="hstat"><div class="hstat-val" id="heroInvestors">--</div><div class="hstat-label">Inversores activos</div></div>
+      <div class="hstat"><div class="hstat-val" id="heroProfit">--</div><div class="hstat-label">Rendimiento hoy</div></div>
+    </div>
+  </div>
+
+  <div class="hero-live-widget">
+    <div class="mt5-panel" style="margin-bottom:0">
+      <div class="mt5-symbol"><span class="live-dot"></span>BOT EN VIVO <span id="heroLiveStatus" style="float:right;color:#00C9A7">Conectando...</span></div>
+      <div class="mt5-row"><span class="mt5-label">Balance</span><span class="mt5-val" id="heroLiveBalance">--</span></div>
+      <div class="mt5-row"><span class="mt5-label">Ganadas / Perdidas</span><span class="mt5-val" id="heroLiveWL">-- / --</span></div>
+      <div id="heroLivePositions" style="margin-top:10px"></div>
+    </div>
   </div>
 </div>
 
@@ -574,8 +588,22 @@ async function pollLiveBackend(){
     document.getElementById('liveLosses').textContent = data.losses ?? '--';
     document.getElementById('liveUpdated').textContent = new Date().toLocaleTimeString();
     renderLivePositions(data.extra);
+
+    // Panel del hero (visible desde que carga la pagina, sin clickear ninguna pestaña)
+    const heroStatus = document.getElementById('heroLiveStatus');
+    if(heroStatus){
+      heroStatus.textContent = data.online ? 'En linea' : 'Sin conexion';
+      heroStatus.style.color = data.online ? '#00C9A7' : '#FF6B6B';
+    }
+    const heroBal = document.getElementById('heroLiveBalance');
+    if(heroBal) heroBal.textContent = (data.balance!==undefined? data.balance.toFixed(2)+' USD':'--');
+    const heroWL = document.getElementById('heroLiveWL');
+    if(heroWL) heroWL.textContent = (data.wins ?? '--')+' / '+(data.losses ?? '--');
+    renderHeroLivePositions(data.extra);
   }catch(e){
     document.getElementById('liveStatus').textContent='Error de conexion';
+    const heroStatus = document.getElementById('heroLiveStatus');
+    if(heroStatus){ heroStatus.textContent='Error de conexion'; heroStatus.style.color='#FF6B6B'; }
     console.error(e);
   }
 }
@@ -589,21 +617,39 @@ function renderLivePositions(extra){
     return;
   }
 
-  el.innerHTML = posiciones.map(p=>{
-    const esCompra = p.tipo === 'BUY';
-    const tipoClass = esCompra ? 'mt5-buy' : 'mt5-sell';
-    const profitClass = p.profit >= 0 ? 'mt5-profit-pos' : 'mt5-profit-neg';
-    const slTxt = p.sl && p.sl > 0 ? p.sl.toFixed(4) : '--';
-    const tpTxt = p.tp && p.tp > 0 ? p.tp.toFixed(4) : '--';
+  el.innerHTML = posiciones.map(p=>renderMt5PanelHtml(p)).join('');
+}
 
-    return '<div class="mt5-panel">'+
-      '<div class="mt5-symbol">'+p.symbol+' <span class="'+tipoClass+'">'+p.tipo+'</span> '+p.volumen+'</div>'+
-      '<div class="mt5-row"><span class="mt5-label">Precio apertura</span><span class="mt5-val">'+p.precio_apertura.toFixed(4)+'</span></div>'+
-      '<div class="mt5-row"><span class="mt5-label">Precio actual</span><span class="mt5-val">'+p.precio_actual.toFixed(4)+'</span></div>'+
-      '<div class="mt5-row"><span class="mt5-label">SL / TP</span><span class="mt5-val">'+slTxt+' / '+tpTxt+'</span></div>'+
-      '<div class="mt5-row"><span class="mt5-label">P&amp;L Flotante</span><span class="mt5-val '+profitClass+'">$'+p.profit.toFixed(2)+'</span></div>'+
-    '</div>';
-  }).join('');
+function renderHeroLivePositions(extra){
+  const el = document.getElementById('heroLivePositions');
+  if(!el) return;
+  const posiciones = (extra && extra.posiciones) || [];
+
+  if(posiciones.length===0){
+    el.innerHTML = '<div style="font-size:11px;color:#666;padding:6px 0">Sin posiciones abiertas ahora</div>';
+    return;
+  }
+  // En el panel chico del hero, mostramos solo la primera posicion para no saturar
+  el.innerHTML = renderMt5PanelHtml(posiciones[0], true);
+  if(posiciones.length>1){
+    el.innerHTML += '<div style="font-size:10px;color:#666;text-align:center;margin-top:4px">+'+(posiciones.length-1)+' mas — ver pestaña Bot en vivo</div>';
+  }
+}
+
+function renderMt5PanelHtml(p, compacto){
+  const tipoClass = p.tipo === 'BUY' ? 'mt5-buy' : 'mt5-sell';
+  const profitClass = p.profit >= 0 ? 'mt5-profit-pos' : 'mt5-profit-neg';
+  const slTxt = p.sl && p.sl > 0 ? p.sl.toFixed(4) : '--';
+  const tpTxt = p.tp && p.tp > 0 ? p.tp.toFixed(4) : '--';
+  const estiloExtra = compacto ? 'padding:10px;margin-top:0' : '';
+
+  return '<div class="mt5-panel" style="'+estiloExtra+'">'+
+    '<div class="mt5-symbol">'+p.symbol+' <span class="'+tipoClass+'">'+p.tipo+'</span> '+p.volumen+'</div>'+
+    '<div class="mt5-row"><span class="mt5-label">Precio apertura</span><span class="mt5-val">'+p.precio_apertura.toFixed(4)+'</span></div>'+
+    '<div class="mt5-row"><span class="mt5-label">Precio actual</span><span class="mt5-val">'+p.precio_actual.toFixed(4)+'</span></div>'+
+    '<div class="mt5-row"><span class="mt5-label">SL / TP</span><span class="mt5-val">'+slTxt+' / '+tpTxt+'</span></div>'+
+    '<div class="mt5-row"><span class="mt5-label">P&amp;L Flotante</span><span class="mt5-val '+profitClass+'">$'+p.profit.toFixed(2)+'</span></div>'+
+  '</div>';
 }
 
 window.addEventListener('load',()=>{
@@ -614,7 +660,8 @@ window.addEventListener('load',()=>{
     });
     window.ethereum.on('chainChanged',()=>window.location.reload());
   }
-  setInterval(()=>{ if(document.getElementById('tab-live').classList.contains('active')) pollLiveBackend(); },4000);
+  pollLiveBackend(); // Llenar el panel del hero apenas carga, sin esperar a la pestaña
+  setInterval(()=>{ pollLiveBackend(); },4000);
 });
 </script>
 </body>
