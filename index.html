@@ -116,6 +116,16 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 4
 .tx-link{color:var(--blue2);text-decoration:none;font-family:var(--fm);font-size:11px}
 .tx-link:hover{text-decoration:underline}
 .empty-hint{color:var(--text3);font-size:12px;padding:12px 0;text-align:center}
+.mt5-panel{background:#000;border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px;margin-bottom:12px;font-family:var(--fm)}
+.mt5-panel:last-child{margin-bottom:0}
+.mt5-symbol{color:#fff;font-size:13px;font-weight:600;margin-bottom:10px;padding-bottom:8px;border-bottom:1px solid #1a1a1a}
+.mt5-row{display:flex;justify-content:space-between;font-size:12px;padding:3px 0;color:#ccc}
+.mt5-row .mt5-label{color:#8a8a8a}
+.mt5-row .mt5-val{font-weight:500}
+.mt5-buy{color:#00C9A7}
+.mt5-sell{color:#FF6B6B}
+.mt5-profit-pos{color:#00F2C8}
+.mt5-profit-neg{color:#FF6B6B}
 </style>
 </head>
 <body>
@@ -206,6 +216,13 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 4
         <div class="stat-row"><span class="stat-row-label">Operaciones perdidas</span><span class="stat-row-val" id="liveLosses">--</span></div>
         <div class="stat-row"><span class="stat-row-label">Ultima actualizacion</span><span class="stat-row-val" id="liveUpdated">--</span></div>
         <div class="notice"><strong>Nota:</strong> El trading es un negocio de alto riezgo. No inviertas dinero que no puedas permitirte perder</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Posiciones abiertas ahora</div>
+        <div id="livePositions">
+          <div class="empty-hint">Cargando posiciones...</div>
+        </div>
       </div>
     </div>
 
@@ -556,10 +573,37 @@ async function pollLiveBackend(){
     document.getElementById('liveWins').textContent = data.wins ?? '--';
     document.getElementById('liveLosses').textContent = data.losses ?? '--';
     document.getElementById('liveUpdated').textContent = new Date().toLocaleTimeString();
+    renderLivePositions(data.extra);
   }catch(e){
     document.getElementById('liveStatus').textContent='Error de conexion';
     console.error(e);
   }
+}
+
+function renderLivePositions(extra){
+  const el = document.getElementById('livePositions');
+  const posiciones = (extra && extra.posiciones) || [];
+
+  if(posiciones.length===0){
+    el.innerHTML = '<div class="empty-hint">Sin posiciones abiertas en este momento</div>';
+    return;
+  }
+
+  el.innerHTML = posiciones.map(p=>{
+    const esCompra = p.tipo === 'BUY';
+    const tipoClass = esCompra ? 'mt5-buy' : 'mt5-sell';
+    const profitClass = p.profit >= 0 ? 'mt5-profit-pos' : 'mt5-profit-neg';
+    const slTxt = p.sl && p.sl > 0 ? p.sl.toFixed(4) : '--';
+    const tpTxt = p.tp && p.tp > 0 ? p.tp.toFixed(4) : '--';
+
+    return '<div class="mt5-panel">'+
+      '<div class="mt5-symbol">'+p.symbol+' <span class="'+tipoClass+'">'+p.tipo+'</span> '+p.volumen+'</div>'+
+      '<div class="mt5-row"><span class="mt5-label">Precio apertura</span><span class="mt5-val">'+p.precio_apertura.toFixed(4)+'</span></div>'+
+      '<div class="mt5-row"><span class="mt5-label">Precio actual</span><span class="mt5-val">'+p.precio_actual.toFixed(4)+'</span></div>'+
+      '<div class="mt5-row"><span class="mt5-label">SL / TP</span><span class="mt5-val">'+slTxt+' / '+tpTxt+'</span></div>'+
+      '<div class="mt5-row"><span class="mt5-label">P&amp;L Flotante</span><span class="mt5-val '+profitClass+'">$'+p.profit.toFixed(2)+'</span></div>'+
+    '</div>';
+  }).join('');
 }
 
 window.addEventListener('load',()=>{
