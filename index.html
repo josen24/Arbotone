@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ArbitragePool</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -129,6 +130,13 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 4
 .mt5-sell{color:#FF6B6B}
 .mt5-profit-pos{color:#00F2C8}
 .mt5-profit-neg{color:#FF6B6B}
+.social-container{display:flex;gap:14px;align-items:center}
+.social-link{font-size:19px;color:var(--text2);transition:all .2s ease;text-decoration:none}
+.social-link:hover{transform:scale(1.15)}
+.social-link.fb:hover{color:#1877f2}
+.social-link.tg:hover{color:#0088cc}
+.social-link.x-twitter:hover{color:#ffffff}
+.social-link.yt:hover{color:#ff0000}
 </style>
 </head>
 <body>
@@ -139,10 +147,29 @@ nav{display:flex;align-items:center;justify-content:space-between;padding:18px 4
     <a href="#pool">Pool</a>
     <a href="#faq">Como funciona</a>
   </div>
-  <button class="btn-connect" id="btnConnect" onclick="toggleWallet()">
-    <span id="connectIcon">&#11045;</span>
-    <span id="connectText">Conectar Wallet</span>
-  </button>
+  <div style="display:flex;align-items:center;gap:18px">
+    <div class="social-container">
+      <!-- Telegram: reemplazar href con tu canal/grupo real cuando lo tengas -->
+      <a href="https://t.me" target="_blank" rel="noopener" class="social-link tg" aria-label="Telegram">
+        <i class="fa-brands fa-telegram"></i>
+      </a>
+      <!-- X / Twitter: reemplazar href con tu cuenta real -->
+      <a href="https://x.com" target="_blank" rel="noopener" class="social-link x-twitter" aria-label="X (Twitter)">
+        <i class="fa-brands fa-x-twitter"></i>
+      </a>
+      <!-- YouTube: reemplazar href con tu canal real -->
+      <a href="https://youtube.com" target="_blank" rel="noopener" class="social-link yt" aria-label="YouTube">
+        <i class="fa-brands fa-youtube"></i>
+      </a>
+      <a href="https://www.facebook.com/jose.polanco.14/" target="_blank" rel="noopener" class="social-link fb" aria-label="Facebook">
+        <i class="fa-brands fa-facebook"></i>
+      </a>
+    </div>
+    <button class="btn-connect" id="btnConnect" onclick="toggleWallet()">
+      <span id="connectIcon">&#11045;</span>
+      <span id="connectText">Conectar Wallet</span>
+    </button>
+  </div>
 </nav>
 
 <div class="alert alert-success" style="background-color: #1eb1a2; color: white; text-align:center; padding:12px 20px; line-height:1.5;">
